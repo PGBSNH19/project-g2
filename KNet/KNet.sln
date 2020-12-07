@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.API", "KNet.API\KNet.API.csproj", "{BDB83820-2E58-4975-83AB-96BD16F2C122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.Tests", "KNet.Tests\KNet.Tests.csproj", "{3B78451A-FC26-4D78-A36B-BF7198707F64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.Web", "KNet.Web\KNet.Web.csproj", "{4CA7873A-0E19-406F-991C-25CF64DF09D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.API.Library", "KNet.API.Library\KNet.API.Library.csproj", "{367F043C-1A40-46F1-9282-32CE8057CF1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDB83820-2E58-4975-83AB-96BD16F2C122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB83820-2E58-4975-83AB-96BD16F2C122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB83820-2E58-4975-83AB-96BD16F2C122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB83820-2E58-4975-83AB-96BD16F2C122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3347950-71AB-447F-B4E7-7DCB2980F8F9}
+	EndGlobalSection
+EndGlobal

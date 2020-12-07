@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Table1]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [asdasda] DATETIMEOFFSET NOT NULL, 
+    [GFSDFK] NCHAR(10) NULL
+)
