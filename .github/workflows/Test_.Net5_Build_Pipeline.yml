@@ -23,4 +23,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
         
-      - run: dotnet build ./KNet/KNet.sln
+      - run: dotnet build 
+        working-directory: ./KNet.sln 
+        
+      
