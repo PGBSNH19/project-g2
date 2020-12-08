@@ -14,5 +14,13 @@ jobs:
     
       - name: Checkout
         uses: actions/checkout@v2
-
-
+      
+      - name: Set up .Net 5.0
+        uses: UseDotNet@2
+        with:
+            dotnet-version: '5.0.x'
+            
+      - name: Install dependencies
+        run: dotnet restore
+        
+      - run: dotnet build KNet/KNet.sln
