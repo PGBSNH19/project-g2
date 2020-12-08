@@ -24,4 +24,4 @@ jobs:
         run: dotnet restore
 
       - name: Build - Debug
-        run: dotnet build --configuration KNet.sln
+        run: dotnet build --configuration KNet/KNet.sln
