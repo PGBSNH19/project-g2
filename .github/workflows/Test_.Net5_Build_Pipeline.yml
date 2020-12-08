@@ -22,8 +22,7 @@ jobs:
         
       - run: echo %PATH%
         
-      - run: dotnet build 
-        working-directory: ./KNet.sln
+      - run: dotnet build KNet/KNet.sln
         
         
       
