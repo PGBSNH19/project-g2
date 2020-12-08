@@ -23,7 +23,7 @@ jobs:
       - run: echo %PATH%
         
       - run: dotnet build 
-        working-directory: ./KNet/KNet.API/KNet.API.csproj
+        working-directory: src/KNet/KNet.sln
         
         
       
