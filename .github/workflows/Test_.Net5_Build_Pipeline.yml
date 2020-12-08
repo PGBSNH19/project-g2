@@ -1,4 +1,4 @@
-name: .NET 5
+name: Build KNet.sln
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:    
+  build:
     runs-on: ubuntu-latest
     name: Run on ubuntu-latest
     steps:
@@ -19,10 +19,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
             dotnet-version: '5.0.x'
-        
-      - run: echo %PATH%
-        
-      - run: dotnet build KNet/KNet.sln
-        
-        
-      
+
+      - name: Build - Debug
+        run: dotnet build KNet/KNet.sln
