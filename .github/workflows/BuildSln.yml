@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build sln on ubuntu-latest
+    name: Build sln on ubuntu-latest and run unit tests
     steps:
     
       - name: Checkout
@@ -20,5 +20,8 @@ jobs:
         with:
             dotnet-version: '5.0.x'
 
-      - name: Build - Debug
+      - name: Build sln - Debug
         run: dotnet build KNet/KNet.sln
+
+      - name: Run Unit Tetsts
+        run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj

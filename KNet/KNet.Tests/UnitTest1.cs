@@ -5,10 +5,14 @@ namespace KNet.Tests
 {
     public class UnitTest1
     {
-        [Fact]
-        public void Test1()
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(2, 2)]
+        public void EqualNumberChecker(int myInt, int mySecondInt)
         {
-
+            Assert.Equal(myInt, mySecondInt);
         }
+
+
     }
 }
