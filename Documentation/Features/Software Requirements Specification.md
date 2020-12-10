@@ -44,7 +44,32 @@ In this section are all the functional requirements for the project.
 
 ###       3.1 Functional Requirements
 
-#### 3.1.1 Users
+???
+
+###       3.2 External Interface Requirements
+
+**User:**
+
+* Device with an Internet browser. 
+
+* Internet connection. 
+
+  
+
+**KNet requirements:** 
+
+* Hosting environment (Cloud service) 
+* Docker 
+* IDE For coding 
+* Continuous Integration pipeline 
+* Continuous Delivery pipeline 
+* GitHub repository
+
+
+
+###       3.3 System Features
+
+#### 3.3.1 Users
 
 ```gherkin
 Feature: Create an account
@@ -102,53 +127,118 @@ Feature: Search for skills filtered on specific categories
 
 ```gherkin
 Feature: Edit user profile
-	Scenario: the User is navigated to their profile page
-		When 
-		Then 
-		And 
+    Scenario: the User has navigated to their profile page
+        When a User edits a field in their biography
+        Then clicks the save button
+        And the new content will be saved
+```
+
+##### View "My created adverts"
+
+```gherkin
+Feature: The "My created Adverts" view
+	Scenario: the User navigates to "My created Adverts"
+		When the User clicks the "My created Adverts" button
+		Then the Users adverts are shown
+```
+
+```gherkin
+Feature: Create an advert
+	Scenario: the User is navigated to "My created Adverts"
+		When the User clicks the create advert button
+		Then a modal(?) is shown
+		And the User fills in the required and/or optional fields
+		And User clicks the "save advert" button and the advert is stored
 ```
 
 ```gherkin
 Feature: Remove an advert
-	Scenario: the User is navigated to "My Adverts"
+	Scenario: the User is navigated to "My created Adverts"
 		When the User clicks the remove advert button
 		Then the advert is deleted from the my adverts list and the advert-listing
 ```
 
 ```gherkin
-Feature: Update advert
-	Scenario: the user is navigated to "My Adverts"
+Feature: Update an advert
+	Scenario: the user is navigated to "My created Adverts"
         When the User clicks the edit advert button inside of the detail screen
         Then the User is able to edit the advert fields
         And the User can click save
 ```
 
+##### View "Bookmarked Adverts"
+
+```gherkin
+Feature: View Bookmarked Advert    
+	Scenario: The user clicks on one of his/hers Bookmarked adverts        
+    	When The user clicks on one advert in Saved Adverts        
+    	Then The advert shows up in a modal
+```
+
+```gherkin
+Feature: Remove Bookmarked Advert    
+	Scenario: The user removes one his/hers Bookmarked adverts.        
+		When the user clicks the X in the top right corner of the advert        
+		Then the advert is removed from the users list        
+		And the list is updated
+```
+
+```gherkin
+Feature: Remove All Bookmarked Adverts   
+	Scenario: The user removes all of his/hers Bookmarked adverts.        
+		When The user views the list of saved adverts there is a button "Remove All Adverts"        
+		Then the user clicks the button and all the adverts is removed        
+		And the list is updated
+```
+
+##### Donations page
+
+```gherkin
+Feature: Donation page    
+	Scenario: The User wants to donate to the "KNet" organization        
+        When The User clicks the donate button        
+        Then The User will be redirected to the organization PayPal-page
+```
+
+##### Contact page
+
+```gherkin
+Feature: Contact page    
+    Scenario: The User is navigated to the contact page        
+        When The User has filled the contact forms        
+        Then The User can click send and the form will be submitted
+```
+
+##### Advert Details
+
+```gherkin
+Feature: Show the advert detail screen    
+	Scenario: the user is logged in to the website        
+        When the User clicks on an advert anywhere on the page        
+        Then a detail form (a modal) will popup and "white out" the previous content
+        And the user will be able to see details about the advert
+```
+
+```gherkin
+Feature: Flag advert    
+	Scenario: the User believes the advert is bad for some reason       
+        When the User clicks on the "flag advert" button       
+        Then a detail form (a modal) will popup and "white out" the previous content
+        And the user will be able to send a message about why they think the advert is 			bad
+```
+
+##### Power User
+
+```gherkin
+Feature: Power User    
+	Scenario: An advert or profile page is inappropriate or has inappropriate information
+		When The User is logged in as a Power User        
+		Then The Power User will be able to edit or remove information on any page
+```
 
 
-### View "My adverts"
 
-* Create an advert (refactor)
-* Remove an advert (outside of the detail screen) using remove-button
-* Update Advert (on the detail screen)
-
-### View "Saved Adverts"
-
-* Click on a saved advert and see details
-* Remove one or all ads using remove-button
-
-### Donations page
-
-* Click donate and be redirected to eg. paypal
-
-### Contact page
-
-* A post form that emails the dev. team.
-
-### Advert Details
-
-* use modal
-
-####  3.1.2 Website
+####  3.3.2 Website
 
 ```gherkin
 Feature: Landing page
@@ -157,8 +247,6 @@ Feature: Landing page
 		Then the User are asked to create an account to be able to enter the website
 ```
 
-###       3.2 External Interface Requirements
-
-###       3.3 System Features
+###       
 
 ###       3.4 Nonfunctional Requirements
