@@ -26,7 +26,8 @@ Knowledge Net (KNet) is an application that matches Users that have a skill (tea
 * KNet is not intended to be a social media platform, and therefore contact between users is defined by the users themselves and not by KNet.
 * KNet is a non-profit organization and will not handle payments between users.
 * KNet will accept donations from users.
-* 
+
+  
 
 ## 2. Overall Description
 
@@ -44,8 +45,6 @@ In this section are all the functional requirements for the project.
 
 ###       3.1 Functional Requirements
 
-???
-
 ###       3.2 External Interface Requirements
 
 **User:**
@@ -59,17 +58,24 @@ In this section are all the functional requirements for the project.
 **KNet requirements:** 
 
 * Hosting environment (Cloud service) 
+
 * Docker 
+
 * IDE For coding 
+
 * Continuous Integration pipeline 
+
 * Continuous Delivery pipeline 
+
 * GitHub repository
 
+* MSSQL-database
 
+  
 
 ###       3.3 System Features
 
-#### 3.3.1 Users
+#### 3.3.1 Account
 
 ```gherkin
 Feature: Create an account
@@ -94,6 +100,24 @@ Feature: User logout
 ```
 
 ```gherkin
+Feature: Edit user profile
+    Scenario: the User has navigated to their profile page
+        When a User edits a field in their biography
+        Then clicks the save button
+        And the new content will be saved
+```
+
+```gherkin
+Feature: Subscribe to a category
+	Scenario: The User clicks a checkbox in their profile
+		When the User clicks save
+		Then the User will be subscribed choosen category
+		And the User gets notified by e-mail when a new advert is added to any of the choosen categories
+```
+
+#### **3.3.2** **Adverts**
+
+```gherkin
 Feature: Post an advert
 	Scenario: User posts an advert
 		When the User clicks the create-advert-button they will be navigated to the advert creation page
@@ -110,14 +134,6 @@ Feature: Choose an advert
 ```
 
 ```gherkin
-Feature: Subscribe to a category
-	Scenario: The User clicks a checkbox in their profile
-		When the User clicks save
-		Then the User will be subscribed choosen category
-		And the User gets notified by e-mail when a new advert is added to any of the choosen categories
-```
-
-```gherkin
 Feature: Search for skills filtered on specific categories
 	Scenario: when a User clicks the search-box
 		When a User chooses one or more categories 
@@ -126,53 +142,61 @@ Feature: Search for skills filtered on specific categories
 ```
 
 ```gherkin
-Feature: Edit user profile
-    Scenario: the User has navigated to their profile page
-        When a User edits a field in their biography
-        Then clicks the save button
-        And the new content will be saved
+Feature: Show the advert detail screen    
+	Scenario: the user is logged in to the website        
+        When the User clicks on an advert anywhere on the page        
+        Then a detail form (a modal) will show
+        And the user will be able to see details about the advert
 ```
 
-##### View "My created adverts"
+```gherkin
+Feature: Flag advert    
+	Scenario: The User believes the advert is bad for some reason       
+        When the User clicks on the "flag advert" button       
+        Then a detail form (a modal) will show
+        And the user will be able to send a message about why they think the advert is 			bad
+```
+
+#### **3.3.3** My Adverts
 
 ```gherkin
 Feature: The "My created Adverts" view
-	Scenario: the User navigates to "My created Adverts"
-		When the User clicks the "My created Adverts" button
+	Scenario: the User navigates to "My Adverts"
+		When the User clicks the "My Adverts" button
 		Then the Users adverts are shown
 ```
 
 ```gherkin
 Feature: Create an advert
-	Scenario: the User is navigated to "My created Adverts"
+	Scenario: the User is navigated to "My Adverts"
 		When the User clicks the create advert button
 		Then a modal(?) is shown
 		And the User fills in the required and/or optional fields
-		And User clicks the "save advert" button and the advert is stored
+		And User clicks the save-button and the advert is stored
 ```
 
 ```gherkin
 Feature: Remove an advert
-	Scenario: the User is navigated to "My created Adverts"
+	Scenario: the User is navigated to "My Adverts"
 		When the User clicks the remove advert button
 		Then the advert is deleted from the my adverts list and the advert-listing
 ```
 
 ```gherkin
 Feature: Update an advert
-	Scenario: the user is navigated to "My created Adverts"
+	Scenario: the User is navigated to "My Adverts"
         When the User clicks the edit advert button inside of the detail screen
         Then the User is able to edit the advert fields
-        And the User can click save
+        And the User can click save-button
 ```
 
-##### View "Bookmarked Adverts"
+#### 3.3.4 Bookmarked Adverts
 
 ```gherkin
 Feature: View Bookmarked Advert    
-	Scenario: The user clicks on one of his/hers Bookmarked adverts        
-    	When The user clicks on one advert in Saved Adverts        
-    	Then The advert shows up in a modal
+	Scenario: The User is navigated to their "Bookmarked Adverts"        
+    	When the User clicks on an advert    
+    	Then the advert shows up in a modal
 ```
 
 ```gherkin
@@ -184,14 +208,13 @@ Feature: Remove Bookmarked Advert
 ```
 
 ```gherkin
-Feature: Remove All Bookmarked Adverts   
-	Scenario: The user removes all of his/hers Bookmarked adverts.        
-		When The user views the list of saved adverts there is a button "Remove All Adverts"        
-		Then the user clicks the button and all the adverts is removed        
-		And the list is updated
+Feature: Remove All "Bookmarked Adverts"   
+	Scenario: The User is navigated to their "Bookmarked Adverts"        
+		When the User clicks the "Remove All Adverts"        
+		Then all the saved adverts are deleted from the list
 ```
 
-##### Donations page
+#### 3.3.4 Donations page
 
 ```gherkin
 Feature: Donation page    
@@ -200,34 +223,16 @@ Feature: Donation page
         Then The User will be redirected to the organization PayPal-page
 ```
 
-##### Contact page
+#### 3.3.5 Contact page
 
 ```gherkin
 Feature: Contact page    
     Scenario: The User is navigated to the contact page        
-        When The User has filled the contact forms        
-        Then The User can click send and the form will be submitted
+        When the User has filled the contact forms        
+        Then the User can click send and the form will be submitted
 ```
 
-##### Advert Details
-
-```gherkin
-Feature: Show the advert detail screen    
-	Scenario: the user is logged in to the website        
-        When the User clicks on an advert anywhere on the page        
-        Then a detail form (a modal) will popup and "white out" the previous content
-        And the user will be able to see details about the advert
-```
-
-```gherkin
-Feature: Flag advert    
-	Scenario: the User believes the advert is bad for some reason       
-        When the User clicks on the "flag advert" button       
-        Then a detail form (a modal) will popup and "white out" the previous content
-        And the user will be able to send a message about why they think the advert is 			bad
-```
-
-##### Power User
+#### 3.3.6 Power User
 
 ```gherkin
 Feature: Power User    
@@ -236,9 +241,7 @@ Feature: Power User
 		Then The Power User will be able to edit or remove information on any page
 ```
 
-
-
-####  3.3.2 Website
+####  3.3.7 Website
 
 ```gherkin
 Feature: Landing page
