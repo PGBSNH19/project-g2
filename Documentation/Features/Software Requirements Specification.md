@@ -108,6 +108,26 @@ Feature: Edit user profile
 		And 
 ```
 
+
+
+##### View "My adverts"
+
+```gherkin
+Feature: The "My Adverts" view
+	Scenario: the User navigates to "My Adverts"
+		When the User clicks the "My Adverts" button
+		Then the Users adverts are shown
+```
+
+```gherkin
+Feature: Create an advert
+	Scenario: the User is navigated to "My Adverts"
+		When the User clicks the create advert button
+		Then a modal(?) is shown
+		And the User fills in the required and/or optional fields
+		And User clicks the "save advert" button and the advert is stored
+```
+
 ```gherkin
 Feature: Remove an advert
 	Scenario: the User is navigated to "My Adverts"
@@ -116,7 +136,7 @@ Feature: Remove an advert
 ```
 
 ```gherkin
-Feature: Update advert
+Feature: Update an advert
 	Scenario: the user is navigated to "My Adverts"
         When the User clicks the edit advert button inside of the detail screen
         Then the User is able to edit the advert fields
@@ -124,12 +144,6 @@ Feature: Update advert
 ```
 
 
-
-### View "My adverts"
-
-* Create an advert (refactor)
-* Remove an advert (outside of the detail screen) using remove-button
-* Update Advert (on the detail screen)
 
 ### View "Saved Adverts"
 
