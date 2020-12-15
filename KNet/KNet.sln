@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.API", "KNet.API\KNet.API.csproj", "{BDB83820-2E58-4975-83AB-96BD16F2C122}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.API", "KNet.API\KNet.API.csproj", "{BDB83820-2E58-4975-83AB-96BD16F2C122}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.Tests", "KNet.Tests\KNet.Tests.csproj", "{3B78451A-FC26-4D78-A36B-BF7198707F64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.Tests", "KNet.Tests\KNet.Tests.csproj", "{3B78451A-FC26-4D78-A36B-BF7198707F64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.Web", "KNet.Web\KNet.Web.csproj", "{4CA7873A-0E19-406F-991C-25CF64DF09D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.API.Library", "KNet.API.Library\KNet.API.Library.csproj", "{367F043C-1A40-46F1-9282-32CE8057CF1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.API.Library", "KNet.API.Library\KNet.API.Library.csproj", "{367F043C-1A40-46F1-9282-32CE8057CF1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.Web", "KNet.Web\KNet.Web.csproj", "{E9B213BF-B714-42B3-BC26-A8F31C3BE121}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B78451A-FC26-4D78-A36B-BF7198707F64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CA7873A-0E19-406F-991C-25CF64DF09D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{367F043C-1A40-46F1-9282-32CE8057CF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B213BF-B714-42B3-BC26-A8F31C3BE121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B213BF-B714-42B3-BC26-A8F31C3BE121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B213BF-B714-42B3-BC26-A8F31C3BE121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B213BF-B714-42B3-BC26-A8F31C3BE121}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
