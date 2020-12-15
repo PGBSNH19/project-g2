@@ -31,6 +31,8 @@ Any one story shoud not be longer than 5 hours
 
 ## Product Owners Business priorities
 
+* 
+
 ## Db Data/Initializer
 
 ### What tables do we need? 
@@ -43,6 +45,7 @@ Any one story shoud not be longer than 5 hours
   * LastName
   * Email
   * PhoneNumber
+  * BookmarkedAdverts (Collection(Advert))
 * Advert
   * UserId (FK)
   * CategoryId (FK)
@@ -56,12 +59,6 @@ Any one story shoud not be longer than 5 hours
 * AdvertPicture
   * AdvertId (FK)
   * UserId (FK)
-* BookmarkedAdverts
-  * AdvertId (FK)
-  * UserId (FK)
-* PowerUser
-  * UserId (FK)
-  * IsPowerUser
 * Categories
   * Music
   * Gaming
@@ -104,3 +101,32 @@ Github Flow: Commit often and try to keep the commits as small as possible.
 * How much documentation? 
 * Use confluence for documenting?
 * What is meant with remaining time in definition of done?
+
+
+
+lägg till "logga tid för devs"
+
+och var testningen tar över
+
+sätt alternativt någonting tillbaka till ToDo
+
+
+
+Homeknapp
+
+categories dropdown
+
+create new ad knapp
+
+user-knapp med dropdown
+
+sökfält utan funktionallitet
+
+filter knapparna 
+
+footer med contact länk
+
+ej ad feed
+
+
+
