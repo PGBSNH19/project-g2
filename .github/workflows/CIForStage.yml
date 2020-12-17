@@ -23,3 +23,22 @@ jobs:
       run: |
         docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
+
+    - name: Login to Azure CLI 
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy and run Server on webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: knetapidev
+        publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
+        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
+
+    - name: Deploy and run Client on webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: knetwebdev
+        publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
+        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
