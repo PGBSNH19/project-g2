@@ -8,11 +8,11 @@ WORKDIR /src
 COPY ["KNet/KNet.API/KNet.API.csproj", "KNet/KNet.API/"]
 RUN dotnet restore "KNet/KNet.API/KNet.API.csproj"
 COPY . .
-WORKDIR "/src/KNet.API"
-RUN dotnet build "KNet.API.csproj" -c Release -o /app/build
+WORKDIR "/src"
+RUN dotnet build "KNet/KNet.API/KNet.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "KNet.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "KNet/KNet.API/KNet.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
