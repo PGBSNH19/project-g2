@@ -32,7 +32,7 @@ jobs:
     - name: Deploy and run Server on webapp
       uses: azure/aci-deploy@v1
       with:
-        app-name: knetapidev
+        name: knetapidev
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
         image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
         resource-group: G2
@@ -45,7 +45,7 @@ jobs:
     - name: Deploy and run Client on webapp
       uses: azure/aci-deploy@v1
       with:
-        app-name: knetwebdev
+        name: knetwebdev
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
         image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
         resource-group: G2
