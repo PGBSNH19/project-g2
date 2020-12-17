@@ -34,7 +34,7 @@ jobs:
       with:
         app-name: knetapidev
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
         resource-group: G2
         dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -47,7 +47,7 @@ jobs:
       with:
         app-name: knetwebdev
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
         resource-group: G2
         dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
