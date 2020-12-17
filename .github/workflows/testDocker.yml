@@ -15,4 +15,4 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
         docker build -f KNet/KNet.API/Dockerfile . -t knetregistry.azurecr.io/knet:${{ github.sha }} 
-        docker push knetregistry.azurecr.io/knet:${{ github.sha }}  
+        docker push knetregistry.azurecr.io:${{ github.sha }}  
