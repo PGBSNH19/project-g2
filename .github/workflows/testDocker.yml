@@ -10,9 +10,9 @@ jobs:
     - uses: actions/checkout@v2
     - uses: azure/docker-login@v1
       with:
-        login-server: mycontainer.azurecr.io
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t knetregistry.azurecr.io:${{ github.sha }} 
-        docker push knetregistry.azurecr.io:${{ github.sha }}  
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}:${{ github.sha }}  
