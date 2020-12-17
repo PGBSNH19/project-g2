@@ -1,0 +1,27 @@
+name: Build KNet.sln
+
+on:
+  push:
+    branches: [ main ]
+  pull_request: 
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build sln on ubuntu-latest and run unit tests
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Set up .Net 5.0
+        uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: '5.0.x'
+
+      - name: Build sln - Debug
+        run: dotnet build KNet/KNet.sln
+
+      - name: Run Unit Tetsts
+        run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj
