@@ -11,17 +11,83 @@ jobs:
     runs-on: ubuntu-latest
     name: Build sln on ubuntu-latest and run unit tests
     steps:
-    
-      - name: Checkout
-        uses: actions/checkout@v2
+
+    - name: Checkout
+      uses: actions/checkout@v2
       
-      - name: Set up .Net 5.0
-        uses: actions/setup-dotnet@v1
-        with:
-            dotnet-version: '5.0.x'
+    - name: Set up .Net 5.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
 
-      - name: Build sln - Debug
-        run: dotnet build KNet/KNet.sln
+    - name: Build sln - Debug
+      run: dotnet build KNet/KNet.sln
 
-      - name: Run Unit Tetsts
-        run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj
+    - name: Run Unit Tetsts
+      run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj
+
+    # set up a dotnet core cli
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0'
+
+    # restore dependencies and tools
+    - name: 'dotnet restore'
+      uses: DotNetCoreCLI@2
+      with:
+        command: 'restore'
+        feedsToUse: 'select'
+        feedRestore: 'projectName/feedName'
+        projects: '**/*.csproj'
+        includeNuGetOrg: true
+
+    # dotnet build
+    - name: Dotnet build
+      run: dotnet build --configuration Release --no-restore
+
+    # failing tests stops the pipeline
+    - name: Dotnet Test
+      run: dotnet test --no-restore --verbosity normal
+
+    # Continous Deployment
+    - name: Appsettings variable substitution for Server
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: Hotel.Server/appsettings.json
+      env:
+        ConnectionStrings.DefaultConnection: ${{ secrets.CONNECTION_STRING_DEV }}
+
+    - name: Login to container registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER_DEV }}
+        username: ${{ secrets.REGISTRY }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build Docker image of Server and push to Registry
+      run:  |
+        docker build Hotel.Server/ -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/server:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER}}/server:${{ github.sha }}
+    - name: Build Docker image of Client and push to Registry
+      run: | 
+        docker build Hotel.Client/ -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/client:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/client:${{ github.sha }}
+    - name: Login to Azure CLI 
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy and run Server on webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: knetserver
+        publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
+        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/server:${{ github.sha }}
+
+    - name: Deploy and run Client on webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: hotelclientdev
+        publish-profile: ${{ secrets.CLIENT_PUBLISH_PROFILE_DEV }}
+        images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/client:${{ github.sha }}
