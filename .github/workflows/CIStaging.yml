@@ -78,7 +78,12 @@ jobs:
     - run: |
         docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
-        
+    
+    - name: Login to Azure CLI 
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
     - name: Deploy and run Client on webapp
       uses: azure/aci-deploy@v1
       with:
