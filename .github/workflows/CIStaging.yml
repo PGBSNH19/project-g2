@@ -1,4 +1,4 @@
-name: CI/CD - Build, test and then run in azure
+name: Staging CI/CD - Build, test and then run in azure
 
 on:
   push:
