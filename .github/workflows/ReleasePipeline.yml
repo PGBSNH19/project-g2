@@ -40,8 +40,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}  
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}  
         
     - name: Login to Azure CLI 
       uses: azure/login@v1
@@ -53,7 +53,7 @@ jobs:
       with:
         name: knet-api-release
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
         dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-release-run${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -76,8 +76,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
+        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-release:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-release:${{ github.sha }} 
     
     - name: Login to Azure CLI 
       uses: azure/login@v1
@@ -89,7 +89,7 @@ jobs:
       with:
         name: knet-web-release
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-release:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
         dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}web-release-run${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
