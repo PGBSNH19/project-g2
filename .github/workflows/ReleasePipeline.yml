@@ -40,7 +40,7 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }} 
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }} 
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}  
         
     - name: Login to Azure CLI 
@@ -76,7 +76,7 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
+        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-release:${{ github.sha }} 
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-release:${{ github.sha }} 
     
     - name: Login to Azure CLI 
