@@ -2,7 +2,7 @@
 
 namespace KNet.API.Models
 {
-    public class Advert
+    public class Advert : Entity
     {
         public Guid UserId { get; set; }
         public Guid CategoryId { get; set; }
