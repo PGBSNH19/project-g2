@@ -12,14 +12,14 @@ namespace KNet.API.Repositories
     public class UserController : ControllerBase
     {
         private readonly AppDbContext _context;
-        
+
         public UserController(AppDbContext context)
         {
             _context = context;
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> Get (Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
             if (id == Guid.Empty)
                 return BadRequest();
@@ -42,7 +42,7 @@ namespace KNet.API.Repositories
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete (Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var user = await _context.Users
                 .Where(x =>
@@ -60,7 +60,7 @@ namespace KNet.API.Repositories
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put (User request)
+        public async Task<IActionResult> Put(User request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -83,6 +83,26 @@ namespace KNet.API.Repositories
             _context.Update(user);
             await _context.SaveChangesAsync();
 
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(User request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = new User
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                Password = request.Password
+            };
+
+            _context.Add(user);
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }
