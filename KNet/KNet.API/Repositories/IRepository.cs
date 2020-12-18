@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace KNet.API.Repository
+namespace KNet.API.Repositories
 {
     public interface IRepository
     {

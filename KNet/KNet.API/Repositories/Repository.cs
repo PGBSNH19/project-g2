@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
-namespace KNet.API.Repository
+namespace KNet.API.Repositories
 {
     public class Repository : IRepository
     {
