@@ -1,4 +1,4 @@
-name: CI - Build and test on development branch
+name: CI/CD - Build, test and then run in azure
 
 on:
   push:
@@ -7,12 +7,10 @@ on:
     branches: [ staging ]
 
 jobs:
-  job1:
-    build:
-      runs-on: ubuntu-latest
-      name: Build sln on ubuntu-latest and run unit tests
-      steps:
-
+  CI: 
+    runs-on: ubuntu-latest
+    name: Build sln on ubuntu-latest and run unit tests
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -26,3 +24,71 @@ jobs:
 
       - name: Run Unit Tetsts
         run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj
+        
+  DockerizeAndPushAPI:
+    needs: [CI]
+    runs-on: ubuntu-latest
+    name: Create new docker image based on KNet.API
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: |
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}  
+        
+    - name: Login to Azure CLI 
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy and run API on webapp
+      uses: azure/aci-deploy@v1
+      with:
+        name: knetapidev
+        publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}apirun${{ github.run_number }}
+        registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        location: 'west us'
+    
+  DockerizeAndPushWEB:
+    needs: [CI]
+    runs-on: ubuntu-latest
+    name: Create new docker image based on KNet.WEB
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+    
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: |
+        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }} 
+        
+    - name: Deploy and run Client on webapp
+      uses: azure/aci-deploy@v1
+      with:
+        name: knetwebdev
+        publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}webrun${{ github.run_number }}
+        registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        location: 'west us'
+    
