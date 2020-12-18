@@ -29,14 +29,14 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy and run Server on webapp
+    - name: Deploy and run API on webapp
       uses: azure/aci-deploy@v1
       with:
-        name: knetapidev2
+        name: knetapidev
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
         image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}run${{ github.run_number }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}apirun${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
@@ -45,11 +45,11 @@ jobs:
     - name: Deploy and run Client on webapp
       uses: azure/aci-deploy@v1
       with:
-        name: knetwebdev2
+        name: knetwebdev
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
         image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}run${{ github.run_number }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}webrun${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
