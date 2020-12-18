@@ -1,4 +1,5 @@
 ﻿using KNet.API.Context;
+using KNet.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -53,6 +54,33 @@ namespace KNet.API.Repositories
                 return BadRequest();
 
             _context.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put (User request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = await _context.Users
+                .Where(x =>
+                x.Id == request.Id &&
+                x.IsActive)
+                .FirstOrDefaultAsync();
+
+            if (user is null)
+                return BadRequest();
+
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.Email = request.Email;
+            user.PhoneNumber = request.PhoneNumber;
+            user.Password = request.Password;
+
+            _context.Update(user);
             await _context.SaveChangesAsync();
 
             return Ok();
