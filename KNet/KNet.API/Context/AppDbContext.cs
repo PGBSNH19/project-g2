@@ -1,7 +1,9 @@
 ﻿using KNet.API.Models;
+using KNet.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace KNet.API.Context
     public class AppDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
+        AzureKeyVaultService _aKVService = new AzureKeyVaultService();
 
         public AppDbContext(IConfiguration config, DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -26,7 +29,21 @@ namespace KNet.API.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            var builder = new ConfigurationBuilder();
+
+            try
+            {
+                builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                var config = builder.Build();
+                var defaultConnectionString = config.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(defaultConnectionString);
+
+            }
+            catch
+            {
+                var azureDbCon = _aKVService.GetKeyVaultSecret("https://knetkeys.vault.azure.net/secrets/knetconnectionstring/c08543c15e6f47abb0089993d6a83ac2");
+                optionsBuilder.UseSqlServer(azureDbCon);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
