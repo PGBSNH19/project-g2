@@ -29,6 +29,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    #For API 
     - name: Deploy and run API on webapp
       uses: azure/aci-deploy@v1
       with:
@@ -42,6 +43,7 @@ jobs:
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
         location: 'west us'
 
+    #For Web app
     - name: Deploy and run Client on webapp
       uses: azure/aci-deploy@v1
       with:
