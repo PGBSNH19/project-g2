@@ -48,7 +48,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Deploy and run API on webapp
+    - name: Deploy and run API on AzureCI
       uses: azure/aci-deploy@v1
       with:
         name: knetapidev
@@ -84,7 +84,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Deploy and run Client on webapp
+    - name: Deploy and run WEB client on AzureCI
       uses: azure/aci-deploy@v1
       with:
         name: knetwebdev
