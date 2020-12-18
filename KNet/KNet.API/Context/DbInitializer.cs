@@ -14,11 +14,54 @@ namespace KNet.API.Context
         {
             context.Database.EnsureCreated();
 
-            if (context.Users.Any())
-            {
-                return;
-            }
+            if (context.Users.Any()
+                && context.Category.Any()
+                && context.Advert.Any())
+            { return; }
 
+            AddCategories(context);
+            AddUsers(context);
+
+            var allUsers = context.Users
+                .Select(x => x.Id)
+                .ToList();
+            var allCategories = context.Category
+                .Select(x => x.Id)
+                .ToList();
+
+            var adverts = new Advert[]
+            {
+                new Advert{UserId = allUsers[0], CategoryId = allCategories[0], Content = "", StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "", Location = "", Price = 0 },
+            };
+        }
+
+        private static void AddCategories(AppDbContext context)
+        {
+            var categories = new Category[]
+            {
+                new Category{Name="Music"},
+                new Category{Name="Programming"},
+                new Category{Name="Painting"},
+                new Category{Name="Cooking"},
+                new Category{Name="Roofing"},
+                new Category{Name="Gardening"},
+                new Category{Name="Fishing"},
+                new Category{Name="Health & Lifestyle"},
+                new Category{Name="Dancing"},
+                new Category{Name="Homeopathy"},
+                new Category{Name="Gambling & Gaming"}
+            };
+
+            foreach (var c in categories)
+            {
+                context.Add(c);
+            }
+            context.SaveChanges();
+        }
+
+        private static void AddUsers(AppDbContext context)
+        {
             var users = new User[]
             {
                 new User{FirstName = "Benjamin", LastName = "Ytterström", Email = "bytt@fakemail.se", Password = "Ostbollar123", PhoneNumber = 0123456789},
