@@ -1,5 +1,40 @@
 ﻿@page "/"
 
+<MatAppBarContainer>
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatButton Link="/counter"
+                           Dense="true">
+                    KNet
+                </MatButton>
+                <MatAppBarTitle>MatBlazor - Material Design components for Blazor</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                <MatButton 
+                           Link="/counter" 
+                           Raised="true">
+                           Create New Ad
+                </MatButton>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                <MatButton 
+                           Link="/counter" 
+                           Raised="true" 
+                           TrailingIcon="account_circle">
+                           Profile
+                </MatButton>
+            </MatAppBarSection>
+           
+        </MatAppBarRow>
+    </MatAppBar>
+
+    <MatAppBarContent>
+        Content
+    </MatAppBarContent>
+</MatAppBarContainer>
+
+
 <div class="container-fluid">
     <h6>QUICK FILTERS</h6>
     <div class="btn-group" role="group">
