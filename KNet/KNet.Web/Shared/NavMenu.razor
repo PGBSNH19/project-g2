@@ -27,13 +27,25 @@
             </MatAppBarSection>
 
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+
                 <MatButton Style="background-color: steelblue;"
-                           Link="/profile"
+                           
                            Raised="true"
-                           TrailingIcon="account_circle">
+                           TrailingIcon="account_circle"
+                           OnClick="@OnClick"
+                           RefBack="@buttonForwardRef">
                     Profile
                 </MatButton>
+                <MatMenu @ref="Menu" TargetForwardRef="@buttonForwardRef">
+                    <MatList>
+                        <MatListItem Href="/profile">Edit Profile</MatListItem>
+                        <MatListItem Href="/counter">Bookmarks</MatListItem>
+                        <MatListItem Href="/counter">My Adverts</MatListItem>
+                        <MatListItem Href="/counter">Log Out</MatListItem>
+                    </MatList>
+                </MatMenu>
             </MatAppBarSection>
+                   
 
         </MatAppBarRow>
     </MatAppBar>
@@ -61,7 +73,13 @@ string[] value1Items = new[]
                   };
 
 
+ForwardRef buttonForwardRef = new ForwardRef();
+BaseMatMenu Menu;
 
+public void OnClick(MouseEventArgs e)
+{
+    this.Menu.OpenAsync();
+}
 
 
 }
