@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
-namespace KNet.API.Repository
+namespace KNet.API.Repositories
 {
     public class Repository : IRepository
     {
@@ -19,15 +19,9 @@ namespace KNet.API.Repository
             return entity;
         }
 
-        public async Task<T> Delete<T>(Guid id) where T : class
+        public async Task<T> Delete<T>(T entity) where T : class
         {
-            var entity = await _context.Set<T>().FindAsync(id);
-            if (entity == null)
-            {
-                return entity;
-            }
-
-            _context.Set<T>().Remove(entity);
+            _context.Remove(entity);
             await Save();
             return entity;
         }
