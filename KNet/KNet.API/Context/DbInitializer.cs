@@ -1,8 +1,6 @@
 ﻿using KNet.API.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace KNet.API.Context
 {
@@ -14,7 +12,7 @@ namespace KNet.API.Context
 
 #if DEBUG
             // Adds data to the tables if they dont contain any data in debug mode.
-            if (!context.Category.Any())
+            if (!context.Categories.Any())
             {
                 AddCategories(context); 
             }
@@ -32,7 +30,7 @@ namespace KNet.API.Context
                 // TODO - How do we handle existing data?
             }
 
-            if (!context.Advert.Any()) 
+            if (!context.Adverts.Any()) 
             { 
                 AddAdverts(context); 
             }
@@ -48,7 +46,7 @@ namespace KNet.API.Context
             var allUsers = context.Users
                 .Select(x => x.Id)
                 .ToList();
-            var allCategories = context.Category
+            var allCategories = context.Categories
                 .Select(x => x.Id)
                 .ToList();
 
@@ -76,7 +74,7 @@ namespace KNet.API.Context
 
             foreach (var a in adverts)
             {
-                context.Advert.Add(a);
+                context.Adverts.Add(a);
             }
             context.SaveChanges();
         }
@@ -100,7 +98,7 @@ namespace KNet.API.Context
 
             foreach (var c in categories)
             {
-                context.Category.Add(c);
+                context.Categories.Add(c);
             }
             context.SaveChanges();
         }
