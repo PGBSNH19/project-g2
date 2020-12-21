@@ -43,7 +43,7 @@ namespace KNet.API.Context
             }
             catch
             {
-                var azureDbCon = _aKVService.GetKeyVaultSecret("https://knetkeys.vault.azure.net/secrets/knetconnectionstring/c08543c15e6f47abb0089993d6a83ac2");
+                var azureDbCon = _aKVService.GetKeyVaultSecret("https://knetkeys.vault.azure.net/secrets/knetconnectionstring3/ba4f10e518444772b26d003223b24ee8");
                 optionsBuilder.UseSqlServer(azureDbCon);
             }
         }
