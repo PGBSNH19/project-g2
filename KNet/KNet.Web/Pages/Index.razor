@@ -1,37 +1,69 @@
 ﻿@page "/"
 
-<div class="container-fluid">
-    <h6>QUICK FILTERS</h6>
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary">ALL</button>
-        <button type="button" class="btn btn-primary">ONLINE</button>
-        <button type="button" class="btn btn-primary">IRL</button>
-    </div>
-</div>
-<br />
+@*<MatAppBarContainer>
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatButton Link="/counter"
+                   Raised="true">
+                   Home
+        </MatButton>
+        <MatAppBarTitle>KNet</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                <MatButton 
+                           Link="/counter" 
+                           Raised="true">
+                           Create New Ad
+                </MatButton>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                <MatButton 
+                           Link="/profile" 
+                           Raised="true" 
+                           TrailingIcon="account_circle">
+                           Profile
+                </MatButton>
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+</MatAppBarContainer>*@
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-header">
-            <h4>
-                AD TITLE/COURSE TITLE - AD CREATED DATE YYYY-MM-DD
-            </h4>
-            <div class="text-sm-right">
-                CATEGORY NAME
-            </div>
+
+
+    <div class="container-fluid">
+        <h6>QUICK FILTERS</h6>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary">ALL</button>
+            <button type="button" class="btn btn-primary">ONLINE</button>
+            <button type="button" class="btn btn-primary">IRL</button>
         </div>
-        <div class="row">
-            <div class="img-fluid col-md-4">
-                <img src="favicon.ico">
+    </div>
+    <br />
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    AD TITLE/COURSE TITLE - AD CREATED DATE YYYY-MM-DD
+                </h4>
+                <div class="text-sm-right">
+                    CATEGORY NAME
+                </div>
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <p class="card-text">SHORT COURSE DESCRIPTION PREVIEW (COUPLE OF LINES)</p>
-                    <p class="card-text">START DATE - END DATE</p>
-                    <p class="card-text">COURSE LOCATION</p>
-                    <p class="card-text">PRICE FREE</p>
+            <div class="row">
+                <div class="img-fluid col-md-4">
+                    <img src="favicon.ico">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text">SHORT COURSE DESCRIPTION PREVIEW (COUPLE OF LINES)</p>
+                        <p class="card-text">START DATE - END DATE</p>
+                        <p class="card-text">COURSE LOCATION</p>
+                        <p class="card-text">PRICE FREE</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+

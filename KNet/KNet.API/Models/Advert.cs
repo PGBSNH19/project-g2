@@ -5,7 +5,9 @@ namespace KNet.API.Models
     public class Advert : Entity
     {
         public Guid UserId { get; set; }
+        public User User { get; set; }
         public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
         public string Heading { get; set; }
         public string Content { get; set; }
         public string Location { get; set; }
