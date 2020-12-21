@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.Tests", "KNet.Tests\KN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.API.Library", "KNet.API.Library\KNet.API.Library.csproj", "{367F043C-1A40-46F1-9282-32CE8057CF1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.Web", "KNet.Web\KNet.Web.csproj", "{27F63250-C80A-44A6-ADD6-36023C0E3177}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.Web", "KNet.Web\KNet.Web.csproj", "{27F63250-C80A-44A6-ADD6-36023C0E3177}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
