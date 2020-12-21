@@ -1,21 +1,23 @@
-﻿<MatDialog @bind-IsOpen="@dialogIsOpen">
-    <MatDialogTitle>Hi @name</MatDialogTitle>
-    <MatDialogContent>
-        <p>What's your favorite animal?</p>
-        <MatSelect TValue="string" Label="Title">
-            <MatOptionString></MatOptionString>
-            <MatOptionString Value="dr">Dr.</MatOptionString>
-            <MatOptionString Value="prof">Prof.</MatOptionString>
-        </MatSelect>
-        <MatTextField @bind-Value="@dialogAnimal"></MatTextField>
+﻿<div>
+    <MatButton OnClick="@OpenDialog" Raised="true">SHOW INFO</MatButton>
 
-
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { dialogIsOpen = false; })">No Thanks</MatButton>
-        <MatButton OnClick="@OkClick">OK</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    <MatDialog @bind-IsOpen="@dialogIsOpen">
+        <MatDialogTitle>Hi @name</MatDialogTitle>
+        <MatDialogContent>
+            <p>What's your favorite animal?</p>
+            <MatSelect TValue="string" Label="Title">
+                <MatOptionString></MatOptionString>
+                <MatOptionString Value="dr">Dr.</MatOptionString>
+                <MatOptionString Value="prof">Prof.</MatOptionString>
+            </MatSelect>
+            <MatTextField @bind-Value="@dialogAnimal"></MatTextField>
+        </MatDialogContent>
+        <MatDialogActions>
+            <MatButton OnClick="@(e => { dialogIsOpen = false; })">No Thanks</MatButton>
+            <MatButton OnClick="@OkClick">OK</MatButton>
+        </MatDialogActions>
+    </MatDialog>
+</div>
 
 @code
         {
