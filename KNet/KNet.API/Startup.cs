@@ -1,4 +1,5 @@
 using KNet.API.Context;
+using KNet.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,8 @@ namespace KNet.API
         {
             services.AddControllers();
             services.AddDbContext<AppDbContext>();
+            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,6 @@
-﻿using KNet.API.Context;
-using KNet.API.Models;
+﻿using KNet.API.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KNet.API.Repositories
@@ -11,11 +8,11 @@ namespace KNet.API.Repositories
     [Route("api/v1/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public UserController(AppDbContext context)
+        public UserController(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
         [HttpGet("id")]
@@ -24,16 +21,7 @@ namespace KNet.API.Repositories
             if (id == Guid.Empty)
                 return BadRequest();
 
-            var user = await _context.Users
-                .Where(x => x.Id == id)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.FirstName,
-                    x.LastName,
-                    x.PhoneNumber,
-                    x.Password
-                }).FirstOrDefaultAsync();
+            var user = await _userRepository.GetUserById(id);
 
             if (user is null)
                 return BadRequest();
@@ -44,17 +32,11 @@ namespace KNet.API.Repositories
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var user = await _context.Users
-                .Where(x =>
-                x.Id == id &&
-                x.IsActive)
-                .FirstOrDefaultAsync();
-
-            if (user is null)
+            if (id == Guid.Empty)
                 return BadRequest();
 
-            _context.Remove(user);
-            await _context.SaveChangesAsync();
+            var user = await _userRepository.GetUserById(id);
+            await _userRepository.Delete(user);
 
             return Ok();
         }
@@ -65,11 +47,7 @@ namespace KNet.API.Repositories
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var user = await _context.Users
-                .Where(x =>
-                x.Id == request.Id &&
-                x.IsActive)
-                .FirstOrDefaultAsync();
+            var user = await _userRepository.GetUserById(request.Id);
 
             if (user is null)
                 return BadRequest();
@@ -80,9 +58,7 @@ namespace KNet.API.Repositories
             user.PhoneNumber = request.PhoneNumber;
             user.Password = request.Password;
 
-            _context.Update(user);
-            await _context.SaveChangesAsync();
-
+            await _userRepository.Update(user);
             return Ok();
         }
 
@@ -101,8 +77,7 @@ namespace KNet.API.Repositories
                 Password = request.Password
             };
 
-            _context.Add(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.Add(user);
             return Ok();
         }
     }

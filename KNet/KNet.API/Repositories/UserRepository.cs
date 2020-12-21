@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KNet.API.Repositories
 {
-    public class UserRepository : Repository
+    public class UserRepository : Repository, IUserRepository
     {
         public UserRepository(AppDbContext context) : base(context)
         {
