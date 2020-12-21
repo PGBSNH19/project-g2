@@ -1,9 +1,10 @@
 ﻿<MatAppBarContainer>
     <MatAppBar Fixed="true">
-        <MatAppBarRow>
+        <MatAppBarRow Style="background-color: lightblue;">
 
             <MatAppBarSection>
-                <MatButton Link="/"
+                <MatButton Style="background-color: steelblue;"
+                           Link="/"
                            Raised="true">
                     Home
                 </MatButton>
@@ -17,7 +18,8 @@
                     <MatIconButton Icon="search"></MatIconButton> @*This button should have OnClick connected to logic in the code-block when it works*@
                 </MatAppBarSection>
 
-                <MatButton Link="/counter"
+                <MatButton Style="background-color: steelblue;"
+                           Link="/counter"
                            Raised="true">
                     Create New Ad
                 </MatButton>
@@ -25,7 +27,8 @@
             </MatAppBarSection>
 
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                <MatButton Link="/profile"
+                <MatButton Style="background-color: steelblue;"
+                           Link="/profile"
                            Raised="true"
                            TrailingIcon="account_circle">
                     Profile
