@@ -8,20 +8,43 @@ namespace KNet.API.Context
 {
     public class DbInitializer
     {
-        public object User { get; private set; }
-
         public void Initialize(AppDbContext context)
         {
             context.Database.EnsureCreated();
 
-            if (context.Users.Any()
-                && context.Category.Any()
-                && context.Advert.Any())
-            { return; }
+#if DEBUG
+            // Adds data to the tables if they dont contain any data in debug mode.
+            if (!context.Category.Any())
+            {
+                AddCategories(context); 
+            }
+            else
+            {
+                // TODO - How do we handle existing data?
+            }
 
-            AddCategories(context);
-            AddUsers(context);
+            if (!context.Users.Any()) 
+            { 
+                AddUsers(context); 
+            }
+            else
+            {
+                // TODO - How do we handle existing data?
+            }
 
+            if (!context.Advert.Any()) 
+            { 
+                AddAdverts(context); 
+            }
+            else
+            {
+                // TODO - How do we handle existing data?
+            }
+#endif
+        }
+
+        private void AddAdverts(AppDbContext context)
+        {
             var allUsers = context.Users
                 .Select(x => x.Id)
                 .ToList();
@@ -31,12 +54,34 @@ namespace KNet.API.Context
 
             var adverts = new Advert[]
             {
-                new Advert{UserId = allUsers[0], CategoryId = allCategories[0], Content = "", StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "", Location = "", Price = 0 },
+                new Advert{UserId = allUsers[0], CategoryId = allCategories[0], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem ipsum , consectetur adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[1], CategoryId = allCategories[1], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[2], CategoryId = allCategories[2], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[3], CategoryId = allCategories[3], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[4], CategoryId = allCategories[4], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[5], CategoryId = allCategories[5], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem ipsum dolor sit amet", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[6], CategoryId = allCategories[6], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem ipsum consectetur adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[7], CategoryId = allCategories[7], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsDeleted = false, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
+                new Advert{UserId = allUsers[8], CategoryId = allCategories[8], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = false, IsDeleted = true, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
             };
+
+            foreach (var a in adverts)
+            {
+                context.Advert.Add(a);
+            }
+            context.SaveChanges();
         }
 
-        private static void AddCategories(AppDbContext context)
+        private void AddCategories(AppDbContext context)
         {
             var categories = new Category[]
             {
@@ -55,12 +100,12 @@ namespace KNet.API.Context
 
             foreach (var c in categories)
             {
-                context.Add(c);
+                context.Category.Add(c);
             }
             context.SaveChanges();
         }
 
-        private static void AddUsers(AppDbContext context)
+        private void AddUsers(AppDbContext context)
         {
             var users = new User[]
             {
@@ -80,7 +125,7 @@ namespace KNet.API.Context
 
             foreach (var u in users)
             {
-                context.Add(u);
+                context.Users.Add(u);
             }
             context.SaveChanges();
         }
