@@ -2,29 +2,47 @@
     <MatButton OnClick="@OpenDialog" Raised="true">SHOW INFO</MatButton>
 
     <MatDialog @bind-IsOpen="@dialogIsOpen">
-        <MatDialogTitle>Hi @name</MatDialogTitle>
+        <MatDialogTitle>ADVERT INFORMATION</MatDialogTitle>
         <MatDialogContent>
-            <p>What's your favorite animal?</p>
-            <MatSelect TValue="string" Label="Title">
-                <MatOptionString></MatOptionString>
-                <MatOptionString Value="dr">Dr.</MatOptionString>
-                <MatOptionString Value="prof">Prof.</MatOptionString>
-            </MatSelect>
-            <MatTextField @bind-Value="@dialogAnimal"></MatTextField>
+            <img 
+                 src="https://quinncreative.files.wordpress.com/2014/07/lorem_ipsum_by_neosh.jpg"
+                 style="
+                    border-radius: 8px;
+                    max-width: 100%;
+                    height: auto;
+                "
+            />
+            <div>
+                <h3>Title: Lorem Ipsum 101: How to write placeholders</h3>
+                <p style="color: green">PRICE: Free</p>
+                <p>
+                    Voluptas assumenda quibusdam
+                    aliquam molestiae. Recusandae ad
+                    ullam dignissimos ut non. Doloribus
+                    beatae ducimus illum. Quos dolores
+                    fugiat ea eum error perspiciatis
+                    ratione. Qui magni necessitatibus
+                    doloremque maxime saepe laudantium
+                    nesciunt. Voluptate solu
+                </p>
+                <MatDivider/>
+                <p>Contact info: muspi.merol@placeholders.com</p>
+            </div>
         </MatDialogContent>
         <MatDialogActions>
-            <MatButton OnClick="@(e => { dialogIsOpen = false; })">No Thanks</MatButton>
-            <MatButton OnClick="@OkClick">OK</MatButton>
+            <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
+            <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
         </MatDialogActions>
     </MatDialog>
 </div>
 
 @code
-        {
+{
     bool dialogIsOpen = false;
     string name = null;
     string animal = null;
     string dialogAnimal = null;
+    string bookmarked = "Bookmark";
 
     void OpenDialog()
     {
@@ -36,6 +54,12 @@
     {
         animal = dialogAnimal;
         dialogIsOpen = false;
+    }
+
+    void Bookmark()
+    {
+        if (bookmarked == "Bookmark") bookmarked = "Is bookmarked";
+        else bookmarked = "Bookmark";
     }
 
 }
