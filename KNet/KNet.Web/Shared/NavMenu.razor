@@ -1,26 +1,67 @@
 ﻿<MatAppBarContainer>
     <MatAppBar Fixed="true">
-        <MatAppBarRow>
+        <MatAppBarRow Style="background-color: lightblue;">
+
             <MatAppBarSection>
-                <MatButton Link="/"
+                <MatButton Style="background-color: steelblue;"
+                           Link="/"
                            Raised="true">
                     Home
                 </MatButton>
                 <MatAppBarTitle>KNet</MatAppBarTitle>
             </MatAppBarSection>
-            <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
-                <MatButton Link="/counter"
+
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+
+                <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                    <MatSelectItem @bind-Value="@value1" Items="@value1Items"></MatSelectItem>
+                    <MatIconButton Icon="search"></MatIconButton> @*This button should have OnClick connected to logic in the code-block when it works*@
+                </MatAppBarSection>
+
+                <MatButton Style="background-color: steelblue;"
+                           Link="/counter"
                            Raised="true">
                     Create New Ad
                 </MatButton>
+
             </MatAppBarSection>
+
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                <MatButton Link="/profile"
+                <MatButton Style="background-color: steelblue;"
+                           Link="/profile"
                            Raised="true"
                            TrailingIcon="account_circle">
                     Profile
                 </MatButton>
             </MatAppBarSection>
+
         </MatAppBarRow>
     </MatAppBar>
 </MatAppBarContainer>
+
+
+@code
+{
+    @*This is the options for the defferent Categories. They should be fetched from db at a later stage*@
+string value1 = "Music";
+
+string[] value1Items = new[]
+            {
+                        "Music",
+                        "Programming",
+                        "Painting",
+                        "Cooking",
+                        "Roofing",
+                        "Gardening",
+                        "Fishing",
+                        "Health & Lifestyle",
+                        "Dancing",
+                        "Homeopathy",
+                        "Gambling & Gaming",
+                  };
+
+
+
+
+
+}
