@@ -1,4 +1,4 @@
-name: Development CI/CD - Build, test and then run in azure
+name: Development API CI/CD - Build, test and then run in azure
 
 on: workflow_dispatch
 
