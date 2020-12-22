@@ -11,9 +11,9 @@ jobs:
     name: Build sln on ubuntu-latest and run unit tests
     steps:
       - name: Checkout
-        uses: actions/checkout@staging
+        uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: staging
 
       - name: Set up .Net 5.0
         uses: actions/setup-dotnet@v1
