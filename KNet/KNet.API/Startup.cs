@@ -25,6 +25,7 @@ namespace KNet.API
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAdvertRepository, AdvertRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddSwaggerGen();
         }
 

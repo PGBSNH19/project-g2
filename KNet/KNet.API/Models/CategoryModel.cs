@@ -1,6 +1,6 @@
 ﻿namespace KNet.API.Models
 {
-    public class Category : Entity
+    public class CategoryModel : Entity
     {
         public string Name { get; set; }
     }
