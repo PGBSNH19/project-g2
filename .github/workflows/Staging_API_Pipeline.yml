@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: main
+          ref: staging
 
       - name: Set up .Net 5.0
         uses: actions/setup-dotnet@v1
@@ -31,7 +31,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: main
+        ref: staging
       
     - name: 'Build and push image'
       uses: azure/docker-login@v1
