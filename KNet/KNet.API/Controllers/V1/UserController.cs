@@ -74,7 +74,7 @@ namespace KNet.API.Repositories
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(User request)
+        public async Task<IActionResult> Post(CreateUserModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
