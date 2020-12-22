@@ -1,4 +1,4 @@
-name: Web Release CI/CD - Build, test and then run in azure
+name: Release Web CI/CD - Build, test and then run in azure
 
 on: workflow_dispatch
 
