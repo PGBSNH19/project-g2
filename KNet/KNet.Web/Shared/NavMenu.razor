@@ -1,37 +1,85 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">KNet.Web</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<MatAppBarContainer>
+    <MatAppBar Fixed="true">
+        <MatAppBarRow Style="background-color: lightblue;">
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-    </ul>
-</div>
+            <MatAppBarSection>
+                <MatButton Style="background-color: steelblue;"
+                           Link="/"
+                           Raised="true">
+                    Home
+                </MatButton>
+                <MatAppBarTitle>KNet</MatAppBarTitle>
+            </MatAppBarSection>
 
-@code {
-    private bool collapseNavMenu = true;
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+                <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                    <MatSelectItem @bind-Value="@value1" Items="@value1Items"></MatSelectItem>
+                    <MatIconButton Icon="search"></MatIconButton> @*This button should have OnClick connected to logic in the code-block when it works*@
+                </MatAppBarSection>
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+                <MatButton Style="background-color: steelblue;"
+                           Link="/counter"
+                           Raised="true">
+                    Create New Ad
+                </MatButton>
+
+            </MatAppBarSection>
+
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+
+                <MatButton Style="background-color: steelblue;"
+                           
+                           Raised="true"
+                           TrailingIcon="account_circle"
+                           OnClick="@OnClick"
+                           RefBack="@buttonForwardRef">
+                    Profile
+                </MatButton>
+                <MatMenu @ref="Menu" TargetForwardRef="@buttonForwardRef">
+                    <MatList>
+                        <MatListItem Href="/profile">Edit Profile</MatListItem>
+                        <MatListItem Href="/counter">Bookmarks</MatListItem>
+                        <MatListItem Href="/counter">My Adverts</MatListItem>
+                        <MatListItem Href="/counter">Log Out</MatListItem>
+                    </MatList>
+                </MatMenu>
+            </MatAppBarSection>
+                   
+
+        </MatAppBarRow>
+    </MatAppBar>
+</MatAppBarContainer>
+
+
+@code
+{
+    @*This is the options for the defferent Categories. They should be fetched from db at a later stage*@
+string value1 = "Music";
+
+string[] value1Items = new[]
+            {
+                        "Music",
+                        "Programming",
+                        "Painting",
+                        "Cooking",
+                        "Roofing",
+                        "Gardening",
+                        "Fishing",
+                        "Health & Lifestyle",
+                        "Dancing",
+                        "Homeopathy",
+                        "Gambling & Gaming",
+                  };
+
+
+ForwardRef buttonForwardRef = new ForwardRef();
+BaseMatMenu Menu;
+
+public void OnClick(MouseEventArgs e)
+{
+    this.Menu.OpenAsync();
+}
+
+
 }
