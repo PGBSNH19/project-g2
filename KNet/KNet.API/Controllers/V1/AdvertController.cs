@@ -10,12 +10,12 @@ namespace KNet.API.Controllers.V1
     public class AdvertController : ControllerBase
     {
         private readonly IAdvertRepository _advertRepository;
-        
+
         public AdvertController(IAdvertRepository advertRepository)
         {
             _advertRepository = advertRepository;
         }
-        
+
         [HttpGet("id")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -31,7 +31,7 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpDelete]
-        public async Task <IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)
                 return BadRequest();
@@ -63,6 +63,27 @@ namespace KNet.API.Controllers.V1
 
             await _advertRepository.Update(advert);
             return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateAdvertModel request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var advert = new Advert
+            {
+                UserId = request.UserId,
+                CategoryId = request.CategoryId,
+                Heading = request.Heading,
+                Content = request.Content,
+                Location = request.Location,
+                Price = request.Price,
+                StartDate = request.StartDate,
+                EndDate = request.EndDate
+            };
+            await _advertRepository.Add(advert);
+            return Ok(advert);
         }
     }
 }

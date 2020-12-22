@@ -9,7 +9,7 @@ namespace KNet.API.Models
             Created = Modified = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         }
         public Guid Id { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
         public int Version { get; set; } = 1;
         public long Created { get; set; }
         public long Modified { get; set; }
