@@ -1,4 +1,4 @@
-name: Development CI/CD - Build, test and then run in azure
+name: Development WEB CI/CD - Build, test and then run in azure
 
 on: workflow_dispatch
 
@@ -8,7 +8,7 @@ jobs:
     name: Build sln on ubuntu-latest and run unit tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@development
 
       - name: Set up .Net 5.0
         uses: actions/setup-dotnet@v1
@@ -24,10 +24,10 @@ jobs:
   DockerizeAndPushAPI:
     needs: [CI]
     runs-on: ubuntu-latest
-    name: Create new docker image based on KNet.API
+    name: Create new docker image based on KNet.Web
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@development
       
     - name: 'Build and push image'
       uses: azure/docker-login@v1
@@ -36,8 +36,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-development:${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-development:${{ github.sha }}  
+        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-development:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-development:${{ github.sha }}  
         
     - name: Login to Azure CLI 
       uses: azure/login@v1
@@ -47,11 +47,11 @@ jobs:
     - name: Deploy and run API on AzureCI
       uses: azure/aci-deploy@v1
       with:
-        name: knet-api-development
+        name: knet-web-development
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-development:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-development:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-development-run${{ github.run_number }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}web-development-run${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
