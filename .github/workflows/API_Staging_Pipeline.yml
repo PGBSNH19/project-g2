@@ -36,8 +36,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}  
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-staging:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api.staging:${{ github.sha }}  
         
     - name: Login to Azure CLI 
       uses: azure/login@v1
@@ -47,11 +47,11 @@ jobs:
     - name: Deploy and run API on AzureCI
       uses: azure/aci-deploy@v1
       with:
-        name: knetapidev
+        name: knet-api-staging
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-staging:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}apirun${{ github.run_number }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-staging-run${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
