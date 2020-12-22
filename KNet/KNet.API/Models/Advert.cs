@@ -17,6 +17,6 @@ namespace KNet.API.Models
         public double Price { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsFlagged { get; set; }
     }
 }

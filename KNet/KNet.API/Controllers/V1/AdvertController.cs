@@ -2,8 +2,6 @@
 using KNet.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KNet.API.Controllers.V1
@@ -39,7 +37,6 @@ namespace KNet.API.Controllers.V1
                 return BadRequest();
 
             var advert = await _advertRepository.GetAdvertById(id);
-            advert.IsDeleted = true;
             await _advertRepository.Delete(advert);
 
             return Ok();
