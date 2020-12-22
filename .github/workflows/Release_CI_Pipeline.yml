@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Build sln on ubuntu-latest and run unit tests
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@main
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        ref: main
 
     - name: Set up .Net 5.0
       uses: actions/setup-dotnet@v1
