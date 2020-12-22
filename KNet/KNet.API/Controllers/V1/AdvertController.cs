@@ -30,6 +30,17 @@ namespace KNet.API.Controllers.V1
             return Ok(advert);
         }
 
+        [HttpGet("list")]
+        public async Task<IActionResult> List()
+        {
+            var adverts = await _advertRepository.GetAllAdverts();
+
+            if (adverts is null)
+                return BadRequest();
+
+            return Ok(adverts);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {

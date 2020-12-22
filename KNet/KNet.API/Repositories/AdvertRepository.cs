@@ -2,6 +2,7 @@
 using KNet.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,11 @@ namespace KNet.API.Repositories
             return await _context.Adverts
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<IList<Advert>> GetAllAdverts()
+        {
+            return await _context.Adverts.ToListAsync();
         }
     }
 }
