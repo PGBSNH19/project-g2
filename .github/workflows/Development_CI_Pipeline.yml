@@ -1,4 +1,4 @@
-name: CI - Build and test on development branch
+name: Development CI - Build and test on development branch
 
 on:
   push:
