@@ -8,7 +8,7 @@ jobs:
     name: Build sln on ubuntu-latest and run unit tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@development
 
       - name: Set up .Net 5.0
         uses: actions/setup-dotnet@v1
@@ -24,10 +24,10 @@ jobs:
   DockerizeAndPushAPI:
     needs: [CI]
     runs-on: ubuntu-latest
-    name: Create new docker image based on KNet.WEB
+    name: Create new docker image based on KNet.Web
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@development
       
     - name: 'Build and push image'
       uses: azure/docker-login@v1
@@ -36,7 +36,7 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-development:${{ github.sha }} 
+        docker build -f KNet/KNet.Web/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-development:${{ github.sha }} 
         docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-web-development:${{ github.sha }}  
         
     - name: Login to Azure CLI 
