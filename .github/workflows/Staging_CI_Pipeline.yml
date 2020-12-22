@@ -1,5 +1,4 @@
-name: Staging API CI/CD - Build, test and then run in azure
-
+name: Staging CI - Build and test on staging branch
 on:
   push:
     branches: [ staging ]
