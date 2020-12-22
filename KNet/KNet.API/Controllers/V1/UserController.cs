@@ -29,6 +29,17 @@ namespace KNet.API.Repositories
             return Ok(user);
         }
 
+        [HttpGet("list")]
+        public async Task<IActionResult> List()
+        {
+            var users = await _userRepository.GetAllUsers();
+
+            if (users is null)
+                return BadRequest();
+
+            return Ok(users);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -63,7 +74,7 @@ namespace KNet.API.Repositories
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(User request)
+        public async Task<IActionResult> Post(CreateUserModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
