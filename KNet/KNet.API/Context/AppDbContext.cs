@@ -33,19 +33,18 @@ namespace KNet.API.Context
         {
             var builder = new ConfigurationBuilder();
 
-            //try
-            //{
-            //    builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            //    var config = builder.Build();
-            //    var defaultConnectionString = config.GetConnectionString("DefaultConnection");
-            //    optionsBuilder.UseSqlServer(defaultConnectionString);
-
-            //}
-            //catch
+            try
             {
-                var test = "https://knetkeys.vault.azure.net/secrets/test/113e3348243046be8d2259d43b434ce8";
+                builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                var config = builder.Build();
+                var defaultConnectionString = config.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(defaultConnectionString);
+
+            }
+            catch
+            {
                 var devKey = "https://knetkeys.vault.azure.net/secrets/knet-data-connectionstring/6ce69867b40d494fa0139270a1a9b1a6";
-                var azureDbCon = _aKVService.GetKeyVaultSecret(test);
+                var azureDbCon = _aKVService.GetKeyVaultSecret(devKey);
                 optionsBuilder.UseSqlServer(azureDbCon);
             }
         }
