@@ -42,9 +42,9 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpGet("userId")]
-        public async Task<IActionResult> GetBookMarks(Guid id)
+        public async Task<IActionResult> GetAdvertsByUserId(Guid id)
         {
-            var adverts = await _advertRepository.GetBookmarksByUserId(id);
+            var adverts = await _advertRepository.GetAdvertsByUserId(id);
 
             if (adverts is null)
                 return BadRequest();
