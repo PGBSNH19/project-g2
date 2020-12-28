@@ -10,7 +10,7 @@ namespace KNet.API.Models
         public User User { get; set; }
         public Guid CategoryId { get; set; }
         [NotMapped]
-        public Category Category { get; set; }
+        public CategoryModel Category { get; set; }
         public string Heading { get; set; }
         public string Content { get; set; }
         public string Location { get; set; }

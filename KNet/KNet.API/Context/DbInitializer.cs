@@ -81,19 +81,19 @@ namespace KNet.API.Context
 
         private void AddCategories(AppDbContext context)
         {
-            var categories = new Category[]
+            var categories = new CategoryModel[]
             {
-                new Category{Name="Music"},
-                new Category{Name="Programming"},
-                new Category{Name="Painting"},
-                new Category{Name="Cooking"},
-                new Category{Name="Roofing"},
-                new Category{Name="Gardening"},
-                new Category{Name="Fishing"},
-                new Category{Name="Health & Lifestyle"},
-                new Category{Name="Dancing"},
-                new Category{Name="Homeopathy"},
-                new Category{Name="Gambling & Gaming"}
+                new CategoryModel{Name="Music"},
+                new CategoryModel{Name="Programming"},
+                new CategoryModel{Name="Painting"},
+                new CategoryModel{Name="Cooking"},
+                new CategoryModel{Name="Roofing"},
+                new CategoryModel{Name="Gardening"},
+                new CategoryModel{Name="Fishing"},
+                new CategoryModel{Name="Health & Lifestyle"},
+                new CategoryModel{Name="Dancing"},
+                new CategoryModel{Name="Homeopathy"},
+                new CategoryModel{Name="Gambling & Gaming"}
             };
 
             foreach (var c in categories)
