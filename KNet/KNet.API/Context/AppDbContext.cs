@@ -27,7 +27,7 @@ namespace KNet.API.Context
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<CategoryModel> Categories { get; set; }
-        public virtual DbSet<Advert> Adverts { get; set; }
+        public virtual DbSet<AdvertModel> Adverts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

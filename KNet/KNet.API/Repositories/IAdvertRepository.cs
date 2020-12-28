@@ -7,7 +7,8 @@ namespace KNet.API.Repositories
 {
     public interface IAdvertRepository : IRepository
     {
-        Task<Advert> GetAdvertById(Guid id);
-        Task<IList<Advert>> GetAllAdverts();
+        Task<AdvertModel> GetAdvertById(Guid id);
+        Task<IList<AdvertModel>> GetAllAdverts();
+        Task<IList<AdvertModel>> GetAdvertsByUserId(Guid id);
     }
 }

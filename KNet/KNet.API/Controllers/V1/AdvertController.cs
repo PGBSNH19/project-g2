@@ -41,6 +41,17 @@ namespace KNet.API.Controllers.V1
             return Ok(adverts);
         }
 
+        [HttpGet("userId")]
+        public async Task<IActionResult> GetAdvertsByUserId(Guid id)
+        {
+            var adverts = await _advertRepository.GetAdvertsByUserId(id);
+
+            if (adverts is null)
+                return BadRequest();
+
+            return Ok(adverts);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -54,7 +65,7 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Advert request)
+        public async Task<IActionResult> Put(UpdateAdvertModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -82,9 +93,8 @@ namespace KNet.API.Controllers.V1
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var advert = new Advert
+            var advert = new AdvertModel
             {
-                UserId = request.UserId,
                 CategoryId = request.CategoryId,
                 Heading = request.Heading,
                 Content = request.Content,
@@ -96,5 +106,6 @@ namespace KNet.API.Controllers.V1
             await _advertRepository.Add(advert);
             return Ok(advert);
         }
+
     }
 }
