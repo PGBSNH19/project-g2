@@ -92,5 +92,20 @@ namespace KNet.API.Controllers.V1
             await _categoryRepository.Update(category);
             return Ok();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Post (CreateCategoryModel request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var category = new CategoryModel
+            {
+                Name = request.Name
+            };
+
+            await _categoryRepository.Add(category);
+            return Ok();
+        }
     }
 }
