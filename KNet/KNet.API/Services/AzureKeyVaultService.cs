@@ -1,9 +1,5 @@
 ﻿using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.Services.AppAuthentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KNet.API.Services
@@ -12,10 +8,15 @@ namespace KNet.API.Services
     {
         public async Task<string> GetKeyVaultSecret()
         {
+#if DEBUG
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
             var keyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
             var secret = await keyVault.GetSecretAsync("https://knetkeys.vault.azure.net/", "ConnectionString-Knet-Data").ConfigureAwait(false);
-
+#else
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            var keyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+            var secret = await keyVault.GetSecretAsync("https://knetkeys.vault.azure.net/", "knet-data-prod").ConfigureAwait(false);
+#endif
             return secret.Value;
         }
     }
