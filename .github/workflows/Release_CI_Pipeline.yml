@@ -1,21 +1,20 @@
-name: Development CI - Build and test on development branch
+name: Main CI - Build and test on main branch
 
 on:
   push:
-    branches: [ development ]
+    branches: [ main ]
   pull_request: 
-    branches: [ development ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build sln on ubuntu-latest and run unit tests
     steps:
-
     - name: Checkout
       uses: actions/checkout@v2
       with:
-          ref: ${{ github.event.pull_request.head.sha }}
+        ref: main
 
     - name: Set up .Net 5.0
       uses: actions/setup-dotnet@v1

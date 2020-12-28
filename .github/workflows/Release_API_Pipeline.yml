@@ -1,4 +1,4 @@
-name: Development CI/CD - Build, test and then run in azure
+name: Release API CI/CD - Build, test and then run in azure
 
 on: workflow_dispatch
 
@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: main
 
       - name: Set up .Net 5.0
         uses: actions/setup-dotnet@v1
@@ -26,8 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Create new docker image based on KNet.API
     steps:
-    - name: Checkout Repo
+    - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ref: main
       
     - name: 'Build and push image'
       uses: azure/docker-login@v1
@@ -36,23 +40,23 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-development:${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-development:${{ github.sha }}  
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}  
         
     - name: Login to Azure CLI 
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Deploy and run API on AzureCI
+    - name: Deploy and run API on webapp
       uses: azure/aci-deploy@v1
       with:
-        name: knet-api-development
+        name: knet-api-release
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-development:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-development-run${{ github.run_number }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-release-run${{ github.run_number }}
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        location: 'west us'    
+        location: 'west us'
