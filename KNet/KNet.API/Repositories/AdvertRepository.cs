@@ -25,5 +25,12 @@ namespace KNet.API.Repositories
         {
             return await _context.Adverts.ToListAsync();
         }
+
+        public async Task<IList<AdvertModel>> GetUserBookmarks(Guid id)
+        {
+            return await _context.Adverts
+                .Where(x => x.UserId == id)
+                .ToListAsync();
+        }
     }
 }

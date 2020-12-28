@@ -41,6 +41,17 @@ namespace KNet.API.Controllers.V1
             return Ok(adverts);
         }
 
+        [HttpGet("userid")]
+        public async Task<IActionResult> GetBookMarks(Guid id)
+        {
+            var adverts = await _advertRepository.GetUserBookmarks(id);
+
+            if (adverts is null)
+                return BadRequest();
+
+            return Ok(adverts);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -95,5 +106,6 @@ namespace KNet.API.Controllers.V1
             await _advertRepository.Add(advert);
             return Ok(advert);
         }
+
     }
 }
