@@ -9,6 +9,6 @@ namespace KNet.API.Repositories
     {
         Task<AdvertModel> GetAdvertById(Guid id);
         Task<IList<AdvertModel>> GetAllAdverts();
-        Task<IList<AdvertModel>> GetUserBookmarks(Guid id);
+        Task<IList<AdvertModel>> GetBookmarksByUserId(Guid id);
     }
 }

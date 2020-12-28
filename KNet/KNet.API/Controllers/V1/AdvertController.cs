@@ -41,10 +41,10 @@ namespace KNet.API.Controllers.V1
             return Ok(adverts);
         }
 
-        [HttpGet("userid")]
+        [HttpGet("userId")]
         public async Task<IActionResult> GetBookMarks(Guid id)
         {
-            var adverts = await _advertRepository.GetUserBookmarks(id);
+            var adverts = await _advertRepository.GetBookmarksByUserId(id);
 
             if (adverts is null)
                 return BadRequest();
