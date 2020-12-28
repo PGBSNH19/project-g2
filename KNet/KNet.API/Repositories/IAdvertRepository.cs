@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace KNet.API.Repositories
 {
-    public interface IUserRepository : IRepository
+    public interface IAdvertRepository : IRepository
     {
-        Task<User> GetUserById(Guid id);
-        Task<IList<User>> GetAllUsers();
+        Task<Advert> GetAdvertById(Guid id);
+        Task<IList<Advert>> GetAllAdverts();
     }
 }

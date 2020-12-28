@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace KNet.API.Repositories
 {
-    public class UserRepository : Repository, IUserRepository
+    public class AdvertRepository : Repository, IAdvertRepository
     {
-        public UserRepository(AppDbContext context) : base(context)
+        public AdvertRepository(AppDbContext context) : base(context)
         {
         }
 
-        public async Task<User> GetUserById(Guid id)
+        public async Task<Advert> GetAdvertById(Guid id)
         {
-            return await _context.Users
+            return await _context.Adverts
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IList<User>> GetAllUsers()
+        public async Task<IList<Advert>> GetAllAdverts()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Adverts.ToListAsync();
         }
     }
 }

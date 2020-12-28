@@ -1,0 +1,129 @@
+﻿@page "/signin"
+
+<style>
+    .mat-layout-grid-inner {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .mat-layout-grid-cell {
+        border: solid 1px;
+        border-color: gray;
+        padding: 5px;
+        margin: 10px;
+        box-shadow: 2px 2px 20px;
+        display: block;
+    }
+
+    .swap {
+        display: block;
+        align-self: center;
+        font-size: larger;
+    }
+</style>
+
+<div class="mat-layout-grid">
+    <div class="mat-layout-grid-inner">
+
+        <div class="mat-layout-grid-cell">
+            <h1>SIGN UP</h1>
+            <div>
+                <MatTextField @bind-Value="@FirstName" Label="First Name" Icon="account_circle" IconTrailing="true"></MatTextField>
+            </div>
+            <div>
+                <MatTextField @bind-Value="@LastName" Label="Last Name" Icon="account_circle" IconTrailing="true"></MatTextField>
+            </div>
+            <div>
+                <MatTextField @bind-Value="@SignUpEmail" Label="E Mail" Icon="email" IconTrailing="true" Type="email"></MatTextField>
+            </div>
+            <div>
+                <MatTextField @bind-Value="@SignUpPassword" Label="New Password" Icon="lock_outline" IconTrailing="true" Required="true" Type="password"></MatTextField>
+            </div>
+            <MatButton Style="background-color: steelblue;"
+                       Type="submit"
+                       Raised="true">Sign Up</MatButton>
+        </div>
+
+        <div class="swap">
+            <MatIcon Icon="swap_horiz"></MatIcon>
+        </div>
+
+        <div class="mat-layout-grid-cell">
+            <h1>LOG IN</h1>
+            <div>
+                <MatTextField @bind-Value="@LogInEmail" Label="E Mail" Icon="email" IconTrailing="true" Type="email"></MatTextField>
+            </div>
+            <div>
+                <MatTextField @bind-Value="@LogInPassword" Label="Password" Icon="lock_outline" IconTrailing="true" Required="true" Type="password"></MatTextField>
+            </div>
+            <MatButton Style="background-color: steelblue;"
+                       Type="submit"
+                       Raised="true">Login</MatButton>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    public string FirstName
+    {
+        get => _firstName;
+        set
+        {
+            _firstName = value;
+            this.StateHasChanged();
+        }
+    }
+    public string LastName
+    {
+        get => _lastName;
+        set
+        {
+            _lastName = value;
+            this.StateHasChanged();
+        }
+    }
+    public string SignUpEmail
+    {
+        get => _signUpEmail;
+        set
+        {
+            _signUpEmail = value;
+            this.StateHasChanged();
+        }
+    }
+    public string SignUpPassword
+    {
+        get => _signUpPassword;
+        set
+        {
+            _signUpPassword = value;
+            this.StateHasChanged();
+        }
+    }
+    public string LogInEmail
+    {
+        get => _logInEmail;
+        set
+        {
+            _logInEmail = value;
+            this.StateHasChanged();
+        }
+    }
+    public string LogInPassword
+    {
+        get => _logInPassword;
+        set
+        {
+            _logInPassword = value;
+            this.StateHasChanged();
+        }
+    }
+
+    private string _firstName;
+    private string _lastName;
+    private string _signUpEmail;
+    private string _signUpPassword;
+    private string _logInEmail;
+    private string _logInPassword;
+}

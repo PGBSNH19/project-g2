@@ -24,6 +24,8 @@ namespace KNet.API
             services.AddDbContext<AppDbContext>();
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAdvertRepository, AdvertRepository>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +41,12 @@ namespace KNet.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "KNet API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
