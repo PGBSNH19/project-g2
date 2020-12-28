@@ -54,7 +54,7 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Advert request)
+        public async Task<IActionResult> Put(UpdateAdvertModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -82,9 +82,8 @@ namespace KNet.API.Controllers.V1
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var advert = new Advert
+            var advert = new AdvertModel
             {
-                UserId = request.UserId,
                 CategoryId = request.CategoryId,
                 Heading = request.Heading,
                 Content = request.Content,
