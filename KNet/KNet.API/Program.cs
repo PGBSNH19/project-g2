@@ -19,10 +19,10 @@ namespace KNet.API
 
             using (var scope = host.Services.CreateScope())
             {
-
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<AppDbContext>();
                 var logger = services.GetRequiredService<ILogger<Program>>();
+
                 logger.LogInformation("Trying Initialization");
                 try
                 {
@@ -36,7 +36,6 @@ namespace KNet.API
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-
 
             host.Run();
         }
