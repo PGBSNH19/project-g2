@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.API.Library", "KNet.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNet.Web", "KNet.Web\KNet.Web.csproj", "{27F63250-C80A-44A6-ADD6-36023C0E3177}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNet.APITests", "KNet.APITests\KNet.APITests.csproj", "{EA43420F-78A8-4B53-B557-8F76FC2484F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{27F63250-C80A-44A6-ADD6-36023C0E3177}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27F63250-C80A-44A6-ADD6-36023C0E3177}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27F63250-C80A-44A6-ADD6-36023C0E3177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA43420F-78A8-4B53-B557-8F76FC2484F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA43420F-78A8-4B53-B557-8F76FC2484F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA43420F-78A8-4B53-B557-8F76FC2484F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA43420F-78A8-4B53-B557-8F76FC2484F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
