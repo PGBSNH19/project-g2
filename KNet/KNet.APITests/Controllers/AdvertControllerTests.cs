@@ -1,13 +1,14 @@
 ﻿using Xunit;
 using System;
 using Moq;
-using KNet.API.Repositories;
-using System.Threading.Tasks;
-using KNet.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using KNet.API.Repositories;
+using KNet.API.Controllers.V1;
+using KNet.API.Models;
 
-namespace KNet.API.Controllers.V1.Tests
+namespace KNet.API.Controllers.Tests
 {
     public class AdvertControllerTests
     {
@@ -34,7 +35,7 @@ namespace KNet.API.Controllers.V1.Tests
         }
 
         [Fact]
-        public async Task GetAllAdverts_Status200OKIsType_ReturnedIdEqualsInput()
+        public async Task GetAllAdverts_Status200OKIsType_ReturnedListEqualsOriginalList()
         {
             //Arrange
             var mockedAdverts = GetTestSession();
@@ -53,38 +54,101 @@ namespace KNet.API.Controllers.V1.Tests
             Assert.Equal(returnValue.Count, mockedAdverts.Count);
         }
 
-        private IList<Advert> GetTestSession()
+        [Fact]
+        public async Task PostAdvert_Status200OKIsType_ReturnedListContainsPostedAdvert()
         {
-            var session = new Advert()
+            //Arrange
+            var mockedAdvert = new CreateAdvertModel
             {
-                Id = Guid.NewGuid()
+                UserId = Guid.NewGuid()
             };
 
+            var mockRepo = new Mock<IAdvertRepository>();
+            mockRepo.Setup
+            (
+                repo => repo.Add(mockedAdvert))
+                .Returns(Task.FromResult(mockedAdvert)
+            );
+            var controller = new AdvertController(mockRepo.Object);
+
+            //Act
+            var result = await controller.Post(mockedAdvert);
+
+            //Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnValue = Assert.IsType<Advert>(okResult.Value);
+            Assert.Equal(returnValue.UserId, mockedAdvert.UserId);
+        }
+
+        [Fact]
+        public async Task PutAdvert_Status200OKIsType_ModificationOfAdvertInListIsVerified()
+        {
+            //Arrange
+            var mockedAdverts = GetTestSession();
+            var mockedAdvert = new Advert
+            {
+                Id = mockedAdverts[0].Id,
+                Content = "Updated"
+            };
+
+            var mockRepo = new Mock<IAdvertRepository>();
+            mockRepo.Setup
+            (
+                repo => repo.Update(mockedAdvert))
+                .Returns(Task.FromResult(mockedAdvert)
+            );
+            mockRepo.Setup
+            (
+                repo => repo.GetAdvertById(mockedAdvert.Id))
+                .Returns(Task.FromResult(mockedAdvert)
+            );
+
+            var controller = new AdvertController(mockRepo.Object);
+
+            //Act
+            var putResult = await controller.Put(mockedAdvert);
+            var getResult = await controller.Get(mockedAdvert.Id);
+
+            //Assert
+            Assert.IsType<OkResult>(putResult);
+            var okResult = Assert.IsType<OkObjectResult>(getResult);
+            var returnValue = Assert.IsType<Advert>(okResult.Value);
+            Assert.Equal(returnValue.Content, mockedAdvert.Content);
+        }
+
+        private IList<Advert> GetTestSession()
+        {
             return new List<Advert>
             {
                 new Advert
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Content = "Not Updated"
                 },
                 new Advert
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Content = "Not Updated"
                 },
                 new Advert
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Content = "Not Updated"
                 },
                 new Advert
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Content = "Not Updated"
                 },
                 new Advert
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Content = "Not Updated"
                 },
                 new Advert
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Content = "Not Updated"
                 }
             };
         }
