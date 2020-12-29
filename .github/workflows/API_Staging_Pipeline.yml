@@ -1,0 +1,58 @@
+name: Staging API CI/CD - Build, test and then run in azure
+
+on: workflow_dispatch
+
+jobs:
+  CI: 
+    runs-on: ubuntu-latest
+    name: Build sln on ubuntu-latest and run unit tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up .Net 5.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Build sln
+        run: dotnet build KNet/KNet.sln
+
+      - name: Run Unit Tetsts
+        run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj
+        
+  DockerizeAndPushAPI:
+    needs: [CI]
+    runs-on: ubuntu-latest
+    name: Create new docker image based on KNet.API
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: |
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-staging:${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api.staging:${{ github.sha }}  
+        
+    - name: Login to Azure CLI 
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy and run API on AzureCI
+      uses: azure/aci-deploy@v1
+      with:
+        name: knet-api-staging
+        publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-staging:${{ github.sha }}
+        resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-staging-run${{ github.run_number }}
+        registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        location: 'west us'    

@@ -1,22 +1,17 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KNet.API.Models
+namespace KNet.API.Controllers.V1
 {
-    public class Advert : Entity
+    public class UpdateAdvertModel
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        [NotMapped]
-        public User User { get; set; }
         public Guid CategoryId { get; set; }
-        [NotMapped]
-        public Category Category { get; set; }
         public string Heading { get; set; }
         public string Content { get; set; }
         public string Location { get; set; }
         public double Price { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public bool IsFlagged { get; set; }
     }
 }

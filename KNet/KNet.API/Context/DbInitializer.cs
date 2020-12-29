@@ -50,25 +50,25 @@ namespace KNet.API.Context
                 .Select(x => x.Id)
                 .ToList();
 
-            var adverts = new Advert[]
+            var adverts = new AdvertModel[]
             {
-                new Advert{UserId = allUsers[0], CategoryId = allCategories[0], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[0], CategoryId = allCategories[0], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem ipsum , consectetur adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[1], CategoryId = allCategories[1], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[1], CategoryId = allCategories[1], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[2], CategoryId = allCategories[2], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[2], CategoryId = allCategories[2], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[3], CategoryId = allCategories[3], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[3], CategoryId = allCategories[3], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[4], CategoryId = allCategories[4], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[4], CategoryId = allCategories[4], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[5], CategoryId = allCategories[5], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[5], CategoryId = allCategories[5], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem ipsum dolor sit amet", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[6], CategoryId = allCategories[6], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[6], CategoryId = allCategories[6], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem ipsum consectetur adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[7], CategoryId = allCategories[7], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[7], CategoryId = allCategories[7], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = true, IsFlagged = false, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
-                new Advert{UserId = allUsers[8], CategoryId = allCategories[8], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                new AdvertModel{UserId = allUsers[8], CategoryId = allCategories[8], Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(2), IsActive = false, IsFlagged = true, Heading = "Lorem ipsum dolor sit amet, consectetur adipiscing elit", Location = "", Price = 9999.99 },
             };
 
@@ -81,19 +81,19 @@ namespace KNet.API.Context
 
         private void AddCategories(AppDbContext context)
         {
-            var categories = new Category[]
+            var categories = new CategoryModel[]
             {
-                new Category{Name="Music"},
-                new Category{Name="Programming"},
-                new Category{Name="Painting"},
-                new Category{Name="Cooking"},
-                new Category{Name="Roofing"},
-                new Category{Name="Gardening"},
-                new Category{Name="Fishing"},
-                new Category{Name="Health & Lifestyle"},
-                new Category{Name="Dancing"},
-                new Category{Name="Homeopathy"},
-                new Category{Name="Gambling & Gaming"}
+                new CategoryModel{Name="Music"},
+                new CategoryModel{Name="Programming"},
+                new CategoryModel{Name="Painting"},
+                new CategoryModel{Name="Cooking"},
+                new CategoryModel{Name="Roofing"},
+                new CategoryModel{Name="Gardening"},
+                new CategoryModel{Name="Fishing"},
+                new CategoryModel{Name="Health & Lifestyle"},
+                new CategoryModel{Name="Dancing"},
+                new CategoryModel{Name="Homeopathy"},
+                new CategoryModel{Name="Gambling & Gaming"}
             };
 
             foreach (var c in categories)

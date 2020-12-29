@@ -26,26 +26,23 @@ namespace KNet.API.Context
         }
 
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Advert> Adverts { get; set; }
+        public virtual DbSet<CategoryModel> Categories { get; set; }
+        public virtual DbSet<AdvertModel> Adverts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();
 
-            //try
-            //{
-            //    builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            //    var config = builder.Build();
-            //    var defaultConnectionString = config.GetConnectionString("DefaultConnection");
-            //    optionsBuilder.UseSqlServer(defaultConnectionString);
-
-            //}
-            //catch
+            try
             {
-                var test = "https://knetkeys.vault.azure.net/secrets/test/113e3348243046be8d2259d43b434ce8";
-                var devKey = "https://knetkeys.vault.azure.net/secrets/knet-data-connectionstring/6ce69867b40d494fa0139270a1a9b1a6";
-                var azureDbCon = _aKVService.GetKeyVaultSecret(test);
+                builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                var config = builder.Build();
+                var defaultConnectionString = config.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(defaultConnectionString);
+            }
+            catch
+            {
+                var azureDbCon = _aKVService.GetKeyVaultSecret().Result;
                 optionsBuilder.UseSqlServer(azureDbCon);
             }
         }
