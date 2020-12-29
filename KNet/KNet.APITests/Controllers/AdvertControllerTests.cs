@@ -58,12 +58,17 @@ namespace KNet.API.Controllers.Tests
         public async Task PostAdvert_Status200OKIsType_ReturnedListContainsPostedAdvert()
         {
             //Arrange
+            var mockedAdverts = GetTestSession();
             var mockedAdvert = new CreateAdvertModel
             {
-                UserId = Guid.NewGuid()
             };
 
             var mockRepo = new Mock<IAdvertRepository>();
+            mockRepo.Setup
+            (
+                repo => repo.GetAllAdverts())
+                .Returns(Task.FromResult(mockedAdverts)
+            );
             mockRepo.Setup
             (
                 repo => repo.Add(mockedAdvert))
@@ -72,12 +77,15 @@ namespace KNet.API.Controllers.Tests
             var controller = new AdvertController(mockRepo.Object);
 
             //Act
-            var result = await controller.Post(mockedAdvert);
+            var postResult = await controller.Post(mockedAdvert);
+            var getResult = await controller.List();
 
             //Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsType<Advert>(okResult.Value);
-            Assert.Equal(returnValue.UserId, mockedAdvert.UserId);
+            var postOkResult = Assert.IsType<OkObjectResult>(postResult);
+            var postReturnValue = Assert.IsType<Advert>(postOkResult.Value);
+            var getOkResult = Assert.IsType<OkObjectResult>(getResult);
+            var getReturnValue = Assert.IsType<List<Advert>>(getOkResult.Value);
+            Assert.True(getReturnValue.Exists(a => a.Id == postReturnValue.Id));
         }
 
         [Fact]
