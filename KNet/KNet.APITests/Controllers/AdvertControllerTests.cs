@@ -61,14 +61,10 @@ namespace KNet.API.Controllers.Tests
             var mockedAdverts = GetTestSession();
             var mockedAdvert = new CreateAdvertModel
             {
+                UserId = Guid.NewGuid()
             };
 
             var mockRepo = new Mock<IAdvertRepository>();
-            mockRepo.Setup
-            (
-                repo => repo.GetAllAdverts())
-                .Returns(Task.FromResult(mockedAdverts)
-            );
             mockRepo.Setup
             (
                 repo => repo.Add(mockedAdvert))
@@ -78,18 +74,15 @@ namespace KNet.API.Controllers.Tests
 
             //Act
             var postResult = await controller.Post(mockedAdvert);
-            var getResult = await controller.List();
 
             //Assert
             var postOkResult = Assert.IsType<OkObjectResult>(postResult);
             var postReturnValue = Assert.IsType<Advert>(postOkResult.Value);
-            var getOkResult = Assert.IsType<OkObjectResult>(getResult);
-            var getReturnValue = Assert.IsType<List<Advert>>(getOkResult.Value);
-            Assert.True(getReturnValue.Exists(a => a.Id == postReturnValue.Id));
+            Assert.Equal(mockedAdvert.UserId, postReturnValue.UserId);
         }
 
         [Fact]
-        public async Task PutAdvert_Status200OKIsType_ModificationOfAdvertInListIsVerified()
+        public async Task PutAdvert_Status200OKIsType_AdditionOfAdvertInListIsVerified()
         {
             //Arrange
             var mockedAdverts = GetTestSession();
@@ -115,13 +108,40 @@ namespace KNet.API.Controllers.Tests
 
             //Act
             var putResult = await controller.Put(mockedAdvert);
-            var getResult = await controller.Get(mockedAdvert.Id);
 
             //Assert
             Assert.IsType<OkResult>(putResult);
-            var okResult = Assert.IsType<OkObjectResult>(getResult);
-            var returnValue = Assert.IsType<Advert>(okResult.Value);
-            Assert.Equal(returnValue.Content, mockedAdvert.Content);
+        }
+
+        [Fact]
+        public async Task DeleteAdvert_Status200OKIsType_DeletionOfAdvertInListIsVerified()
+        {
+            //Arrange
+            var mockedAdverts = GetTestSession();
+            var mockedAdvert = new Advert
+            {
+                Id = mockedAdverts[0].Id
+            };
+
+            var mockRepo = new Mock<IAdvertRepository>();
+            mockRepo.Setup
+            (
+                repo => repo.Delete(mockedAdvert))
+                .Returns(Task.FromResult(mockedAdvert)
+            );
+            mockRepo.Setup
+            (
+                repo => repo.GetAdvertById(mockedAdvert.Id))
+                .Returns(Task.FromResult(mockedAdvert)
+            );
+
+            var controller = new AdvertController(mockRepo.Object);
+
+            //Act
+            var deleteResult = await controller.Delete(mockedAdvert.Id);
+
+            //Assert
+            Assert.IsType<OkResult>(deleteResult);
         }
 
         private IList<Advert> GetTestSession()
