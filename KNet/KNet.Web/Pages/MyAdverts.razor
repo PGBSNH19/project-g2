@@ -1,13 +1,43 @@
-﻿<div>
+﻿@page "/myadverts"
+
+<div>
     <MatButton>Delete Marked Ads</MatButton>
     <MatButton>Create new ad</MatButton>
 </div>
 <div>
     <MatButton>Select/Unselect All</MatButton>
-    <h2>MY ADVERTS</h2>
+    <h5>MY ADVERTS</h5>
+</div>
+<div style="display: inline-flex">
+    <MatCheckbox @bind-Value="@checked1" TValue="bool"></MatCheckbox>
+    <div class="card" style="width: 60vw">
+        <div class="card-header">
+            <h4>
+                AD TITLE/COURSE TITLE - AD CREATED DATE YYYY-MM-DD
+            </h4>
+            <div class="text-sm-right">
+                CATEGORY NAME
+            </div>
+            <AdModal />
+        </div>
+        <div class="row">
+            <div class="img-fluid col-md-4">
+                <img src="favicon.ico">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="card-text">SHORT COURSE DESCRIPTION PREVIEW (COUPLE OF LINES)</p>
+                    <p class="card-text">START DATE - END DATE</p>
+                    <p class="card-text">COURSE LOCATION</p>
+                    <p class="card-text">PRICE FREE</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 @code {
+    bool checked1 = false;
 
 }
