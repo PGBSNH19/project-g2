@@ -13,10 +13,11 @@
     <div class="card" style="width: 60vw">
         <div class="card-header">
             <h4>
+                @advert.Heading - @advert.Created
                 AD TITLE/COURSE TITLE - AD CREATED DATE YYYY-MM-DD
             </h4>
             <div class="text-sm-right">
-                CATEGORY NAME
+                @advert.Category
             </div>
             <AdModal />
         </div>
@@ -26,10 +27,10 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <p class="card-text">SHORT COURSE DESCRIPTION PREVIEW (COUPLE OF LINES)</p>
-                    <p class="card-text">START DATE - END DATE</p>
-                    <p class="card-text">COURSE LOCATION</p>
-                    <p class="card-text">PRICE FREE</p>
+                    <p class="card-text">@advert.Content.Substring(0, 100)</p>
+                    <p class="card-text">@advert.StartDate - @advert.EndDate</p>
+                    <p class="card-text">@advert.Location</p>
+                    <p class="card-text">@advert.Price</p>
                 </div>
             </div>
         </div>
@@ -38,6 +39,6 @@
 
 
 @code {
-    bool checked1 = false;
-
+    public bool checked1 = false;
+    public AdvertModel advert;
 }
