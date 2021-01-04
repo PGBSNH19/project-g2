@@ -1,82 +1,42 @@
 ﻿@page "/myadverts"
+@using System.Net.Http
+@using KNet.Web.Data
+@inject AdvertService advertService
+@inject HttpClient Http
 
-<div>
-    <MatButton>Delete Marked Ads</MatButton>
-    <MatButton>Create new ad</MatButton>
-</div>
-<div>
-    <MatButton>Select/Unselect All</MatButton>
-    <h5>MY ADVERTS</h5>
-</div>
-<div style="display: inline-flex">
-    <MatCheckbox @bind-Value="@checked1" TValue="bool"></MatCheckbox>
-    <div class="card" style="width: 60vw">
-        <div class="card-header">
-            <h4>
-                @advert.Heading - @advert.Created
-            </h4>
-            <div class="text-sm-right">
-                Category: @advert.Category.Name
-            </div>
-            <AdModal />
+@if (Adverts.Any())
+{
+    <div>
+        <div>
+            <MatButton>Delete Marked Ads</MatButton>
+            <MatButton>Create new ad</MatButton>
         </div>
-        <div class="row">
-            <div class="img-fluid col-md-4">
-                <img src="favicon.ico">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <p class="card-text">@advert.Content.Substring(0, 2)</p>
-                    <p class="card-text">Start/End: @advert.StartDate - @advert.EndDate</p>
-                    <p class="card-text">Location: @advert.Location</p>
-                    <p class="card-text">Price: @advert.Price SEK</p>
-                </div>
-            </div>
+        <div>
+            <MatButton>Select/Unselect All</MatButton>
+            <h5>MY ADVERTS</h5>
         </div>
+
+        @foreach (AdvertModel ad in Adverts)
+        {
+            <AdvertComponent advert=ad />
+        }
     </div>
-</div>
+}
+
 
 
 @code {
-    public bool checked1 = false;
-    [Parameter]
-    public AdvertModel advert { get; set; } = new AdvertModel
+
+    public List<AdvertModel> Adverts = new List<AdvertModel>();
+
+    protected async override Task OnInitializedAsync()
     {
-        Category = new CategoryModel
-        {
-            Created = 1000000,
-            Id = Guid.NewGuid(),
-            IsActive = true,
-            Modified = 100000,
-            Name = "placeholder",
-            Version = 1
-        },
-        CategoryId = Guid.NewGuid(),
-        Content = "Placeholder",
-        Created = 1000000,
-        StartDate = DateTime.Now,
-        EndDate = DateTime.Now,
-        Heading = "Placeholder",
-        Id = Guid.NewGuid(),
-        IsActive = true,
-        IsFlagged = false,
-        Location = "Epsilon 6",
-        Modified = 1,
-        Price = 0,
-        User = new User
-        {
-            Created = 1,
-            Email = "asdasd",
-            FirstName = "Testrik",
-            Id = Guid.NewGuid(),
-            IsActive = true,
-            LastName = "aslkdskl",
-            Modified = 1,
-            Password = "password",
-            PhoneNumber = 64654,
-            Version = 1
-        },
-        UserId = Guid.NewGuid(),
-        Version = 1
-    };
+        Adverts = await GetAdvertsByUserId(Guid.Parse("a453298d-af76-46a0-aac0-08d8b0bc1bee"));
+    }
+
+    async Task<List<AdvertModel>> GetAdvertsByUserId(Guid userId)
+    {
+        return await Http.GetJsonAsync<List<AdvertModel>>
+            (@"https://localhost:44360/api/v1/Advert/userId?id=" + userId);
+    }
 }
