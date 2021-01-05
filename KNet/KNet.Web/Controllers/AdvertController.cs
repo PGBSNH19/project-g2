@@ -1,9 +1,11 @@
 ﻿using KNet.Web.Data;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace KNet.Web.Controllers
@@ -11,24 +13,48 @@ namespace KNet.Web.Controllers
     public class AdvertController : Controller
     {
         HttpClient Http;
-        public AdvertController(HttpClient http)
+        public AdvertController(IHttpClientFactory factory)
         {
-            Http = http;
+            this.Http = factory.CreateClient("knetAPIClient");
         }
 
-        public async Task GetAdvertsByUserId(Guid userId)
+        public async Task<List<AdvertModel>> GetAdvertsByUserId(Guid userId)
         {
-            var bla = await Http.GetAsync(
-            @"http://g2api-development-run9.westus.azurecontainer.io/api/v1/Advert/userId=34fcceb5-6f4a-4a7e-c100-08d8ab3d64f4");
+            List<AdvertModel> advertsList = new List<AdvertModel>();
 
-            var deserialize = bla.Content.ReadAsStreamAsync().Result;
+            try
+            {
+                advertsList = await Http.GetFromJsonAsync<List<AdvertModel>>
+                (@"Advert/userId?id=" + userId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"GetAdvertsList: BadRequest. {e}");
+            }
+
+            return advertsList;
             
-
         }
 
-        public IActionResult Index()
+        //Untested
+        public async Task<IActionResult> PostAdvert(AdvertModel advert)
         {
-            return View();
+            if (advert.UserId == Guid.Empty) return BadRequest();
+            
+            var responseMessage = await Http.PostAsJsonAsync<AdvertModel>(@"Advert", advert);
+
+            if (responseMessage.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return BadRequest();
+            }
+
+            return Ok(advert);
+        }
+
+        //Untested
+        public async Task UpdateAdvert(AdvertModel advert)
+        {
+            await Http.PutAsJsonAsync<AdvertModel>(@"Advert", advert);
         }
     }
 }
