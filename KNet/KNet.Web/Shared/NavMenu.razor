@@ -37,29 +37,31 @@
                 </MatAppBarSection>
 
                 <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-
-                    <MatButton Style="background-color: steelblue;"
-                               Raised="true"
-                               TrailingIcon="account_circle"
-                               OnClick="@OnClick"
-                               RefBack="@buttonForwardRef">
-                        Profile
-                    </MatButton>
-                    <MatMenu @ref="Menu" TargetForwardRef="@buttonForwardRef">
-                        <MatList>
-                            <AuthorizeView>
-                                <Authorized>
+                    <AuthorizeView>
+                        <Authorized>
+                            <MatButton Style="background-color: steelblue;"
+                                       Raised="true"
+                                       TrailingIcon="account_circle"
+                                       OnClick="@OnClick"
+                                       RefBack="@buttonForwardRef">
+                                Profile
+                            </MatButton>
+                            <MatMenu @ref="Menu" TargetForwardRef="@buttonForwardRef">
+                                <MatList>
                                     <MatListItem Href="/profile">Edit Profile</MatListItem>
                                     <MatListItem Href="/counter">Bookmarks</MatListItem>
                                     <MatListItem Href="/counter">My Adverts</MatListItem>
-                                    <MatNavItem Href="/identity/account/logout" Type="Submit">Log Out</MatNavItem>
-                                </Authorized>
-                                <NotAuthorized>
-                                    <MatNavItem Href="/identity/account/login" Dense="true">Log In</MatNavItem>
-                                </NotAuthorized>
-                            </AuthorizeView>
-                        </MatList>
-                    </MatMenu>
+                                    <MatNavItem Href="/identity/account/logout">Log Out</MatNavItem>
+                                </MatList>
+                            </MatMenu>
+                        </Authorized>
+                        <NotAuthorized>
+                            <MatButtonLink Style="background-color: steelblue;"
+                                       Raised="true"
+                                       TrailingIcon="account_circle"
+                                       Href="/identity/account/login">Log In</MatButtonLink>
+                        </NotAuthorized>
+                    </AuthorizeView>
                 </MatAppBarSection>
 
 
@@ -70,37 +72,6 @@
 
 @code
 {
-    [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
-
-    public string _authMessage;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        if (user.Identity.IsAuthenticated)
-        {
-            _authMessage = $"{ user.Identity.Name} is authenticated.";
-        }
-        else
-        {
-            _authMessage = "The user is NOT authenticated.";
-        }
-    }
-
-    @code
-        {
-        string LinkState = "";
-
-        void Click(MouseEventArgs e)
-        {
-            LinkState = "Clicked";
-        }
-
-    }
-
-
     @*This is the options for the defferent Categories. They should be fetched from db at a later stage*@
     string value1 = "Music";
 
