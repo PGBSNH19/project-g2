@@ -105,20 +105,20 @@ namespace KNet.API.Context
 
         private void AddUsers(AppDbContext context)
         {
-            var users = new User[]
+            var users = new UserModel[]
             {
-                new User{FirstName = "Benjamin", LastName = "Ytterström", Email = "bytt@fakemail.se", Password = "Ostbollar123", PhoneNumber = 0123456789, IsActive = true},
-                new User{FirstName = "Bosse", LastName = "Hassesson", Email = "bhan@fakemail.se", Password = "Kebabmosglass7", PhoneNumber = 0000000000, IsActive = true},
-                new User{FirstName = "Alice", LastName = "Bengtsson", Email = "aben@fakemail.se", Password = "Greklandsresa8", PhoneNumber = 0000000001, IsActive = true},
-                new User{FirstName = "Bob", LastName = "Oobama", Email = "boob@fakemail.se", Password = "ölkasdölkasdölkasd2", PhoneNumber = 0000000002, IsActive = true},
-                new User{FirstName = "Stella", LastName = "Östman", Email = "sost@fakemail.se", Password = "ölkasdölkasdölkasd3", PhoneNumber = 0000000003, IsActive = true},
-                new User{FirstName = "Vera", LastName = "Blåtera", Email = "vbla@fakemail.se", Password = "ölkasdölkasdölkasd4", PhoneNumber = 0000000004, IsActive = true},
-                new User{FirstName = "Alma", LastName = "Persson", Email = "aper@fakemail.se", Password = "ölkasdölkasdölkasd5", PhoneNumber = 0000000005, IsActive = true},
-                new User{FirstName = "William", LastName = "Shakespeare", Email = "wsha@testfake.com", Password = "ölkasdölkasdölkasd6", PhoneNumber = 0000000006, IsActive = true},
-                new User{FirstName = "Hugo", LastName = "Trollsson", Email = "htro@bossesbilar.se", Password = "ölkasdölkasdölkasd7", PhoneNumber = 0000000007, IsActive = true},
-                new User{FirstName = "Al", LastName = "Gren", Email = "algren@bilar.se", Password = "ölkasdölkasdölkasd8", PhoneNumber = 0000000008, IsActive = true},
-                new User{FirstName = "Leo", LastName = "Axelsson", Email = "axel@bank.se", Password = "ölkasdölkasdölkasd9", PhoneNumber = 0000000009, IsActive = true},
-                new User{FirstName = "Noah", LastName = "Hngh", Email = "Noah@modell.se", Password = "ölkasdölkasdölkasd10", PhoneNumber = 0000000010, IsActive = false}
+                new UserModel{FirstName = "Benjamin", LastName = "Ytterström", Email = "bytt@fakemail.se", Password = "Ostbollar123", PhoneNumber = 0123456789, IsActive = true},
+                new UserModel{FirstName = "Bosse", LastName = "Hassesson", Email = "bhan@fakemail.se", Password = "Kebabmosglass7", PhoneNumber = 0000000000, IsActive = true},
+                new UserModel{FirstName = "Alice", LastName = "Bengtsson", Email = "aben@fakemail.se", Password = "Greklandsresa8", PhoneNumber = 0000000001, IsActive = true},
+                new UserModel{FirstName = "Bob", LastName = "Oobama", Email = "boob@fakemail.se", Password = "ölkasdölkasdölkasd2", PhoneNumber = 0000000002, IsActive = true},
+                new UserModel{FirstName = "Stella", LastName = "Östman", Email = "sost@fakemail.se", Password = "ölkasdölkasdölkasd3", PhoneNumber = 0000000003, IsActive = true},
+                new UserModel{FirstName = "Vera", LastName = "Blåtera", Email = "vbla@fakemail.se", Password = "ölkasdölkasdölkasd4", PhoneNumber = 0000000004, IsActive = true},
+                new UserModel{FirstName = "Alma", LastName = "Persson", Email = "aper@fakemail.se", Password = "ölkasdölkasdölkasd5", PhoneNumber = 0000000005, IsActive = true},
+                new UserModel{FirstName = "William", LastName = "Shakespeare", Email = "wsha@testfake.com", Password = "ölkasdölkasdölkasd6", PhoneNumber = 0000000006, IsActive = true},
+                new UserModel{FirstName = "Hugo", LastName = "Trollsson", Email = "htro@bossesbilar.se", Password = "ölkasdölkasdölkasd7", PhoneNumber = 0000000007, IsActive = true},
+                new UserModel{FirstName = "Al", LastName = "Gren", Email = "algren@bilar.se", Password = "ölkasdölkasdölkasd8", PhoneNumber = 0000000008, IsActive = true},
+                new UserModel{FirstName = "Leo", LastName = "Axelsson", Email = "axel@bank.se", Password = "ölkasdölkasdölkasd9", PhoneNumber = 0000000009, IsActive = true},
+                new UserModel{FirstName = "Noah", LastName = "Hngh", Email = "Noah@modell.se", Password = "ölkasdölkasdölkasd10", PhoneNumber = 0000000010, IsActive = false}
             };
 
             foreach (var u in users)

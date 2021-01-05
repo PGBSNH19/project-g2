@@ -25,7 +25,7 @@ namespace KNet.API.Context
 
         }
 
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<CategoryModel> Categories { get; set; }
         public virtual DbSet<AdvertModel> Adverts { get; set; }
 
