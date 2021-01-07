@@ -56,5 +56,10 @@ namespace KNet.Web.Controllers
         {
             await Http.PutAsJsonAsync<AdvertModel>(@"Advert", advert);
         }
+
+        public async Task DeleteAdvert(Guid advertId)
+        {
+            await Http.DeleteAsync(@"Advert?id=" + advertId);
+        }
     }
 }

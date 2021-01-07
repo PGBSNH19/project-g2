@@ -2,7 +2,7 @@
     <MatButton OnClick="@OpenDialog" Raised="true">SHOW INFO</MatButton>
 
     <MatDialog @bind-IsOpen="@dialogIsOpen">
-        <MatDialogTitle>ADVERT INFORMATION</MatDialogTitle>
+        <MatDialogTitle>@advertData.Heading</MatDialogTitle>
         <MatIconButton 
             Icon="outlined_flag" 
             ToggleIcon="flag"
@@ -16,17 +16,10 @@
                     height: auto;
                 " />
             <div>
-                <h3>Title: Lorem Ipsum 101: How to write placeholders</h3>
-                <p style="color: green">PRICE: Free</p>
+                <h3>@advertData.Heading</h3>
+                <p style="color: green">PRICE: @advertData.Price sek</p>
                 <p>
-                    Voluptas assumenda quibusdam
-                    aliquam molestiae. Recusandae ad
-                    ullam dignissimos ut non. Doloribus
-                    beatae ducimus illum. Quos dolores
-                    fugiat ea eum error perspiciatis
-                    ratione. Qui magni necessitatibus
-                    doloremque maxime saepe laudantium
-                    nesciunt. Voluptate solu
+                    @advertData.Content
                 </p>
                 <MatDivider />
                 <p>Contact info: muspi.merol@placeholders.com</p>
@@ -46,6 +39,7 @@
     string animal = null;
     string dialogAnimal = null;
     string bookmarked = "Bookmark";
+    [Parameter] public AdvertModel advertData { get; set; } = new AdvertModel();
 
     void OpenDialog()
     {
