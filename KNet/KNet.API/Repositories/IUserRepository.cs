@@ -7,7 +7,7 @@ namespace KNet.API.Repositories
 {
     public interface IUserRepository : IRepository
     {
-        Task<User> GetUserById(Guid id);
-        Task<IList<User>> GetAllUsers();
+        Task<UserModel> GetUserById(Guid id);
+        Task<IList<UserModel>> GetAllUsers();
     }
 }

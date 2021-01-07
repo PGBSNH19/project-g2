@@ -53,7 +53,7 @@ namespace KNet.API.Repositories
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(User request)
+        public async Task<IActionResult> Put(UpdateUserModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -79,7 +79,7 @@ namespace KNet.API.Repositories
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var user = new User
+            var user = new UserModel
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,

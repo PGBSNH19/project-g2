@@ -2,7 +2,7 @@
 
 namespace KNet.API.Models
 {
-    public class User : Entity
+    public class UserModel : Entity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
