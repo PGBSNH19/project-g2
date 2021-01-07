@@ -11,7 +11,7 @@ namespace KNet.API.Services
 #if DEBUG
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
             var keyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-            var secret = await keyVault.GetSecretAsync("https://knetkeys.vault.azure.net/", "ConnectionString-Knet-Data").ConfigureAwait(false);
+            var secret = await keyVault.GetSecretAsync("https://knetkeys.vault.azure.net/", "knet-data-prod").ConfigureAwait(false);
 #else
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
             var keyVault = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
