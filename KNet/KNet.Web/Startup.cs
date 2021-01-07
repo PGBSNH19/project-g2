@@ -14,6 +14,7 @@ using MatBlazor;
 using System.Net.Http;
 using KNet.Web.Controllers;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace KNet.Web
 {
@@ -32,6 +33,7 @@ namespace KNet.Web
         {
             services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(@"https://localhost:44360/api/v1/"));
             services.AddScoped<AdvertController>();
+            services.AddScoped<UserController>();
 
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
@@ -39,6 +41,10 @@ namespace KNet.Web
             services.AddServerSideBlazor();
             services.AddMatBlazor();
             services.AddRazorPages();
+
+            // HttpContextAccessor
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,12 +61,12 @@ namespace KNet.Web
                 app.UseHsts();
             }
 
+
             app.UseHttpsRedirection();
+            app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseAuthentication();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
