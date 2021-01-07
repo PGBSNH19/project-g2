@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using KNet.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace KNet.Web.Data
 {
@@ -19,9 +21,20 @@ namespace KNet.Web.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+
+            //var configBuilder = new ConfigurationBuilder();
+            //try
+            //{
+            //    configBuilder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            //    var config = configBuilder.Build();
+            //    var defaultConnectionString = config.GetConnectionString("DefaultConnection");
+            //    optionsBuilder.UseSqlServer(defaultConnectionString);
+            //}
+            //catch
+            //{
+            //    var azureDbCon = _aKVService.GetKeyVaultSecret().Result;
+            //    optionsBuilder.UseSqlServer(azureDbCon);
+            //}
         }
     }
 }
