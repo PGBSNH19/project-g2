@@ -7,18 +7,20 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using KNet.Web.Areas;
 
 [assembly: HostingStartup(typeof(KNet.Web.Areas.Identity.IdentityHostingStartup))]
 namespace KNet.Web.Areas.Identity
-{
+{    
     public class IdentityHostingStartup : IHostingStartup
     {
+        AzureKeyVaultService _azKeyVault = new AzureKeyVaultService();
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<WebContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("WebContextConnection")));
+                        _azKeyVault.GetKeyVaultSecret().Result));
 
                 services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<WebContext>();
