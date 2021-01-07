@@ -25,13 +25,24 @@ namespace KNet.Web
             Configuration = configuration;
         }
 
+        string stagingURI = @"https://G2api-staging-run4.westus.azurecontainer.io/api/v1/";
+        string releaseURI = @"https://G2api-release-run5.westus.azurecontainer.io/api/v1/";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(@"https://localhost:44360/api/v1/"));
+            #if DEBUG
+            {
+                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(stagingURI));
+            }
+            #else
+            {
+                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(releaseURI));
+            }
+            #endif            
             services.AddScoped<AdvertController>();
             services.AddScoped<UserController>();
 
