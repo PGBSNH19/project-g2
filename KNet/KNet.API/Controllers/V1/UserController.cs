@@ -29,6 +29,20 @@ namespace KNet.API.Repositories
             return Ok(user);
         }
 
+        [HttpGet("email")]
+        public async Task<IActionResult> Get(string email)
+        {
+            if (email == string.Empty)
+                return BadRequest();
+
+            var user = await _userRepository.GetUserByEmail(email);
+
+            if (user is null)
+                return BadRequest();
+
+            return Ok(user);
+        }
+
         [HttpGet("list")]
         public async Task<IActionResult> List()
         {

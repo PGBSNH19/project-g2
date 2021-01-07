@@ -14,25 +14,25 @@ namespace KNet.API.Context
             // Adds data to the tables if they dont contain any data in debug mode.
             if (!context.Categories.Any())
             {
-                AddCategories(context); 
+                AddCategories(context);
             }
             else
             {
                 // TODO - How do we handle existing data?
             }
 
-            if (!context.Users.Any()) 
-            { 
-                AddUsers(context); 
+            if (!context.Users.Any())
+            {
+                AddUsers(context);
             }
             else
             {
                 // TODO - How do we handle existing data?
             }
 
-            if (!context.Adverts.Any()) 
-            { 
-                AddAdverts(context); 
+            if (!context.Adverts.Any())
+            {
+                AddAdverts(context);
             }
             else
             {

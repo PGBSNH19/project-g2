@@ -1,9 +1,11 @@
 ﻿@page "/myadverts"
 @using System.Net.Http
 @using KNet.Web.Data
-@using KNet.Web.Controllers 
-@inject AdvertController Controller
+@using KNet.Web.Controllers
+@inject AdvertController AdvertController
+@inject UserController UserController
 @inject HttpClient Http
+@inject WebContext context
 
 @if (Adverts.Any())
 {
@@ -32,7 +34,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        Adverts = await Controller
+        Adverts = await AdvertController
             .GetAdvertsByUserId(
             Guid.Parse("a453298d-af76-46a0-aac0-08d8b0bc1bee")
             );
@@ -40,6 +42,6 @@
 
     async void DeleteAdvert(Guid advertId)
     {
-        await Controller.DeleteAdvert(advertId);
+        await AdvertController.DeleteAdvert(advertId);
     }
 }

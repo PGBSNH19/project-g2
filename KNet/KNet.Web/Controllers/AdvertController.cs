@@ -1,4 +1,5 @@
-﻿using KNet.Web.Data;
+﻿using KNet.Web.Areas.Identity.Data;
+using KNet.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -36,7 +37,23 @@ namespace KNet.Web.Controllers
             }
 
             return advertsList;
-            
+        }
+
+        public async Task<List<AdvertModel>> GetAdverts()
+        {
+            List<AdvertModel> advertsList = new List<AdvertModel>();
+
+            try
+            {
+                advertsList = await Http.GetFromJsonAsync<List<AdvertModel>>
+                (@"Advert/list");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"GetAdvertsList: BadRequest. {e}");
+            }
+
+            return advertsList;
         }
 
         //Untested

@@ -2,8 +2,9 @@
 
 namespace KNet.Web.Data
 {
-    public class User : Entity
+    public class UserModel
     {
+        public bool IsAuthenticated { get; set; } = false;
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
