@@ -6,7 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Net.Http.Headers;
 
 namespace KNet.Web.Controllers
 {
@@ -51,10 +54,31 @@ namespace KNet.Web.Controllers
             return Ok(advert);
         }
 
-        //Untested
+        //Untested and unimplemented!
         public async Task UpdateAdvert(AdvertModel advert)
         {
-            await Http.PutAsJsonAsync<AdvertModel>(@"Advert", advert);
+            UpdateAdvertModel updateModel = new UpdateAdvertModel
+            {
+                CategoryId = advert.CategoryId,
+                Content = advert.Content,
+                Heading = advert.Heading,
+                StartDate = advert.StartDate,
+                EndDate = advert.EndDate,
+                Id = advert.Id,
+                Location = advert.Location,
+                Price = advert.Price,
+                UserId = advert.UserId
+            };
+
+            try
+            {
+                //Not yet implemented
+                Console.WriteLine("Not yet implemented");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error on Put advert: {e}");
+            }            
         }
 
         public async Task DeleteAdvert(Guid advertId)
