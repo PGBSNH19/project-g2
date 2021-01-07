@@ -1,61 +1,57 @@
-﻿<div>
-    <MatButton OnClick="@OpenDialog" Raised="true">SHOW INFO</MatButton>
+﻿<CascadingAuthenticationState>
+    <div>
+        <AuthorizeView>
+            <Authorized>
+                <MatButton OnClick="@OpenDialog" Raised="true">SHOW INFO</MatButton>
+            </Authorized>
+            <NotAuthorized>
+                <MatButton Disabled="true" Raised="true">Log In For Details</MatButton>
+            </NotAuthorized>
+        </AuthorizeView>
+        <MatDialog @bind-IsOpen="@dialogIsOpen">
+            <MatDialogTitle>@advertData.Heading</MatDialogTitle>
 
-    <MatDialog @bind-IsOpen="@dialogIsOpen">
-        <MatDialogTitle>ADVERT INFORMATION</MatDialogTitle>
-        <MatIconButton 
-            Icon="outlined_flag" 
-            ToggleIcon="flag"
-            style="border: none"
-        />
-        <MatDialogContent>
-            <img src="https://quinncreative.files.wordpress.com/2014/07/lorem_ipsum_by_neosh.jpg"
-                 style="
+            <MatIconButton Icon="outlined_flag"
+                           ToggleIcon="flag"
+                           Style="border: none" />
+            <MatDialogContent>
+                <img src="https://quinncreative.files.wordpress.com/2014/07/lorem_ipsum_by_neosh.jpg"
+                     style="
                     border-radius: 8px;
                     max-width: 100%;
                     height: auto;
                 " />
-            <div>
-                <h3>Title: Lorem Ipsum 101: How to write placeholders</h3>
-                <p style="color: green">PRICE: Free</p>
-                <p>
-                    Voluptas assumenda quibusdam
-                    aliquam molestiae. Recusandae ad
-                    ullam dignissimos ut non. Doloribus
-                    beatae ducimus illum. Quos dolores
-                    fugiat ea eum error perspiciatis
-                    ratione. Qui magni necessitatibus
-                    doloremque maxime saepe laudantium
-                    nesciunt. Voluptate solu
-                </p>
-                <MatDivider />
-                <p>Contact info: muspi.merol@placeholders.com</p>
-            </div>
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
-            <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
-        </MatDialogActions>
-    </MatDialog>
-</div>
+                <div>
+                    <h3>@advertData.Heading</h3>
+                    <p>Starts: @advertData.StartDate - Ends: @advertData.EndDate</p>
+                    <p>@advertData.Content</p>
+                    <MatDivider />
+                    <p style="color: green">PRICE: @advertData.Price sek</p>
+                    <p>Location: @advertData.Location</p>
+                    <p>Contact info: muspi.merol@placeholders.com</p>
+                </div>
+            </MatDialogContent>
+            <MatDialogActions>
+                <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
+                <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
+            </MatDialogActions>
+        </MatDialog>
+    </div>
+</CascadingAuthenticationState>
 
 @code
 {
     bool dialogIsOpen = false;
-    string name = null;
-    string animal = null;
-    string dialogAnimal = null;
     string bookmarked = "Bookmark";
+    [Parameter] public AdvertModel advertData { get; set; } = new AdvertModel();
 
     void OpenDialog()
     {
-        dialogAnimal = null;
         dialogIsOpen = true;
     }
 
     void OkClick()
     {
-        animal = dialogAnimal;
         dialogIsOpen = false;
     }
 

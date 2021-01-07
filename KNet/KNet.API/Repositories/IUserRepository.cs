@@ -9,5 +9,6 @@ namespace KNet.API.Repositories
     {
         Task<UserModel> GetUserById(Guid id);
         Task<IList<UserModel>> GetAllUsers();
+        Task<UserModel> GetUserByEmail(string name);
     }
 }
