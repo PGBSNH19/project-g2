@@ -22,22 +22,23 @@
                     height: auto;
                 "
             />
-            <div>
-                <h3>@advertData.Heading</h3>
-                <p>Starts: @advertData.StartDate - Ends: @advertData.EndDate</p>
-                <p>@advertData.Content</p>
-                <MatDivider />
-                <p style="color: green">PRICE: @advertData.Price sek</p>
-                <p>Location: @advertData.Location</p>
-                <p>Contact info: muspi.merol@placeholders.com</p>
-            </div>
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
-            <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
-        </MatDialogActions>
-    </MatDialog>
-</div>
+                <div>
+                    <h3>@advertData.Heading</h3>
+                    <p>Starts: @advertData.StartDate - Ends: @advertData.EndDate</p>
+                    <p>@advertData.Content</p>
+                    <MatDivider />
+                    <p style="color: green">PRICE: @advertData.Price sek</p>
+                    <p>Location: @advertData.Location</p>
+                    <p>Contact info: muspi.merol@placeholders.com</p>
+                </div>
+            </MatDialogContent>
+            <MatDialogActions>
+                <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
+                <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
+            </MatDialogActions>
+        </MatDialog>
+    </div>
+</CascadingAuthenticationState>
 
 @code
 {
