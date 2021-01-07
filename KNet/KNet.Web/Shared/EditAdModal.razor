@@ -1,0 +1,75 @@
+﻿@using KNet.Web.Controllers
+@inject AdvertController Controller
+
+<div>
+    <MatButton OnClick="@OpenDialog" Raised="true" Icon="create" />
+
+    <MatDialog @bind-IsOpen="@dialogIsOpen">
+        <MatDialogTitle>Edit Advert</MatDialogTitle>
+        <MatDialogContent>
+            <form>
+                <div>
+                    <label for="heading">Heading: </label>
+                    <input type="text" id="heading" name="heading" value="@advertData.Heading" />
+                </div>
+                <div>
+                    <label for="startDate">Start date: </label>
+                    <input type="date" id="startDate" name="startDate" value="@advertData.StartDate" />
+                </div>
+                <div>
+                    <label for="endDate">End date: </label>
+                    <input type="date" id="endDate" name="endDate" value="@advertData.EndDate" onchange=""/>
+                </div>
+                <div>
+                    <label for="content">Content: </label>
+                    <input type="text" id="content" name="content" value="@advertData.Content" />
+                </div>
+                <div>
+                    <label for="price">Price: </label>
+                    <input type="text" id="price" name="price" value="@advertData.Price" />
+                </div>
+                <div>
+                    <label for="location">Location: </label>
+                    <input type="text" id="location" name="location" value="@advertData.Location" />
+                </div>
+                <div>
+                    <input type="submit" onsubmit="@UpdateAdvert()"/>
+                </div>
+            </form>
+        </MatDialogContent>
+        <MatDialogActions>
+            <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
+            <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
+        </MatDialogActions>
+    </MatDialog>
+</div>
+
+@code
+{
+    bool dialogIsOpen = false;
+    string bookmarked = "Bookmark";
+    [Parameter] public AdvertModel advertData { get; set; } = new AdvertModel();
+    AdvertModel updatedAdvert = new AdvertModel();
+
+    void OpenDialog()
+    {
+        dialogIsOpen = true;
+    }
+
+    void OkClick()
+    {
+        dialogIsOpen = false;
+    }
+
+    void Bookmark()
+    {
+        if (bookmarked == "Bookmark") bookmarked = "Is bookmarked";
+        else bookmarked = "Bookmark";
+    }
+
+    async Task UpdateAdvert()
+    {
+        await Controller.UpdateAdvert(advertData);
+    }
+
+}

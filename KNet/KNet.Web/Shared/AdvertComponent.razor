@@ -9,6 +9,7 @@
             Icon="delete"
             OnClick="@(() => OnDeleteAdvert.InvokeAsync(advert.Id))" 
         />
+        <EditAdModal advertData="@advert"/>
     }
     <div class="card" style="width: 60vw">
         <div class="card-header">
