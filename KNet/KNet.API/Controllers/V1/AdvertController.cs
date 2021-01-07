@@ -76,6 +76,7 @@ namespace KNet.API.Controllers.V1
                 return BadRequest();
 
             advert.CategoryId = request.CategoryId;
+            advert.UserId = request.UserId;
             advert.Heading = request.Heading;
             advert.Content = request.Content;
             advert.Location = request.Location;
@@ -96,6 +97,7 @@ namespace KNet.API.Controllers.V1
             var advert = new AdvertModel
             {
                 CategoryId = request.CategoryId,
+                UserId = request.UserId,
                 Heading = request.Heading,
                 Content = request.Content,
                 Location = request.Location,
