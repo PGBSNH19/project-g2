@@ -1,0 +1,65 @@
+﻿<CascadingAuthenticationState>
+    <div>
+        <AuthorizeView>
+            <Authorized>
+                <MatButton OnClick="@OpenDialog" Raised="true">SHOW INFO</MatButton>
+            </Authorized>
+            <NotAuthorized>
+                <MatButton Disabled="true" Raised="true">Log In For Details</MatButton>
+            </NotAuthorized>
+        </AuthorizeView>
+        <MatDialog @bind-IsOpen="@dialogIsOpen">
+            <MatDialogTitle>@advertData.Heading</MatDialogTitle>
+
+            <MatIconButton Icon="outlined_flag"
+                           ToggleIcon="flag"
+                           Style="border: none" />
+            <MatDialogContent>
+                <img src="https://quinncreative.files.wordpress.com/2014/07/lorem_ipsum_by_neosh.jpg"
+                     style="
+                    border-radius: 8px;
+                    max-width: 100%;
+                    height: auto;
+                "
+            />
+                <div>
+                    <h3>@advertData.Heading</h3>
+                    <p>Starts: @advertData.StartDate - Ends: @advertData.EndDate</p>
+                    <p>@advertData.Content</p>
+                    <MatDivider />
+                    <p style="color: green">PRICE: @advertData.Price sek</p>
+                    <p>Location: @advertData.Location</p>
+                    <p>Contact info: muspi.merol@placeholders.com</p>
+                </div>
+            </MatDialogContent>
+            <MatDialogActions>
+                <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
+                <MatButton OnClick="@(e => { Bookmark(); })">@bookmarked</MatButton>
+            </MatDialogActions>
+        </MatDialog>
+    </div>
+</CascadingAuthenticationState>
+
+@code
+{
+    bool dialogIsOpen = false;
+    string bookmarked = "Bookmark";
+    [Parameter] public AdvertModel advertData { get; set; } = new AdvertModel();
+
+    void OpenDialog()
+    {
+        dialogIsOpen = true;
+    }
+
+    void OkClick()
+    {
+        dialogIsOpen = false;
+    }
+
+    void Bookmark()
+    {
+        if (bookmarked == "Bookmark") bookmarked = "Is bookmarked";
+        else bookmarked = "Bookmark";
+    }
+
+}

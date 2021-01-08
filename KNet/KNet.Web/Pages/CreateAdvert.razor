@@ -1,0 +1,144 @@
+﻿@using System.ComponentModel.DataAnnotations;
+
+@page "/ad"
+<EditForm Model="myAdvert" OnValidSubmit="Success">
+    <DataAnnotationsValidator />
+
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-6">
+                <h3>Advert Information</h3>
+                <p>
+                    <MatTextField Label="Title" @bind-Value="myAdvert.Title" Outlined="true" />
+                </p>
+                <p>
+                    <MatTextField Label="Price" @bind-Value="myAdvert.Price" Outlined="true" Disabled="@(disablePriceBox(priceFree))" />
+                    <MatCheckbox @bind-Value="@priceFree" Label="Free"></MatCheckbox>
+                </p>
+                <p>
+                    <MatDatePicker Label="Start Date" @bind-Value="myAdvert.StartDate" Outlined="true" />
+                </p>
+                <p>
+                    <MatDatePicker Label="End Date" @bind-Value="myAdvert.EndDate" Outlined="true" />
+                </p>
+                                
+                <textarea placeholder="Descriptive text here." rows="10" cols="50" />
+
+                <h3><b>Category:</b>@Category</h3>
+                <MatRadioGroup @bind-Value="@Category" Items="@CategoryItems"></MatRadioGroup>
+
+             </div>
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-3">
+                <h3>Contact Information</h3>
+                <p>
+                    <MatTextField Label="Full Name" @bind-Value="myContact.FullName" Outlined="true" Icon="account_circle" IconTrailing="true" />
+                </p>
+                <p>
+                    <MatTextField Label="Location" @bind-Value="myContact.Location" Outlined="true" Icon="location_on" IconTrailing="true" />
+                </p>
+                <p>
+                    <MatTextField Label="Email" @bind-Value="myContact.Email" Outlined="true" Icon="email" IconTrailing="true" />
+                </p>
+                <p>
+                    <MatTextField Label="Phone" @bind-Value="myContact.Phone" Outlined="true" Icon="phone" IconTrailing="true" />
+                </p>
+                <p>
+                    <MatTextField Label="Webpage" @bind-Value="myContact.Webpage" Outlined="true" Icon="link" IconTrailing="true" />
+                </p>
+
+                <ValidationSummary />
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-4">
+                    <MatButton Style="background-color: steelblue;" Type="submit" Raised="true">Publish</MatButton>
+                    <MatButton Style="background-color: steelblue;" Raised="true" OnClick="Reset">Reset</MatButton>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+
+    [Inject]
+    IJSRuntime JS { get; set; }
+
+    async Task Success() =>
+        await JS.InvokeAsync<object>("alert", "Advert successfully created!");
+
+    Ad myAdvert = new Ad();
+
+    void Reset()
+    {
+        myAdvert.Title = null;
+        myAdvert.StartDate = DateTime.MinValue;
+        myAdvert.EndDate = null;
+        myAdvert.Price = null;
+    }
+
+    public class Ad
+    {
+        [Required]
+        public string Title { get; set; }
+
+        [Required]
+        [CustomValidation(typeof(Ad), nameof(RequiredDateTime))]
+        public DateTime StartDate { get; set; } = DateTime.Now;
+
+        [Required]
+        public DateTime? EndDate { get; set; } = DateTime.Now.AddDays(14);
+
+        public string Price { get; set; }
+
+        public string AdText { get; set; }
+
+        public static ValidationResult RequiredDateTime(DateTime value, ValidationContext vc)
+        {
+            return value > DateTime.MinValue
+                ? ValidationResult.Success
+                : new ValidationResult($"The {vc.MemberName} field is required.", new[] { vc.MemberName });
+        }
+    }
+
+    bool priceFree = false;
+
+    bool disablePriceBox(bool val)
+    {
+        return val;
+    }
+
+
+    Contact myContact = new Contact();
+
+    public class Contact
+    {
+        [Required]
+        public string FullName { get; set; }
+
+        public string Location { get; set; }
+
+        public string Email { get; set; }
+
+        public long Phone { get; set; }
+
+        public string Webpage { get; set; }
+
+    }
+
+    protected string Category;
+
+    protected string[] CategoryItems =
+    {
+        "Music",
+        "Programming",
+        "Painting",
+        "Cooking",
+        "Roofing",
+        "Gardening",
+        "Fishing",
+        "Health & Lifestyle",
+        "Dancing",
+        "Homeopathy",
+        "Gambling & Gaming",
+     };
+
+}

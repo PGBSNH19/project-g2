@@ -1,0 +1,81 @@
+﻿@using KNet.Web.Controllers
+@inject AdvertController Controller
+@inject IJSRuntime JSRuntime
+
+<div>
+    <MatButton OnClick="@OpenDialog" Raised="true" Icon="create" />
+
+    <MatDialog @bind-IsOpen="@dialogIsOpen">
+        <MatDialogTitle>Edit Advert</MatDialogTitle>
+        <MatDialogContent>
+            <EditForm Model="@advertData" OnValidSubmit="@ValidFormSubmitted">>
+                <div>
+                    <label for="heading">Heading: </label>
+                    <InputText @bind-Value=advertData.Heading id="heading" />
+                </div>
+                <div>
+                    <label for="startDate">Start date: </label>
+                    <InputDate @bind-Value=advertData.StartDate id="startDate" />
+                </div>
+                <div>
+                    <label for="endDate">End date: </label>
+                    <InputDate @bind-Value=advertData.EndDate id="endDate" />
+                </div>
+                <div>
+                    <label for="content">Content: </label>
+                    <InputText @bind-Value=advertData.Content id="content" />
+                </div>
+                <div>
+                    <label for="price">Price: </label>
+                    <InputNumber @bind-Value=advertData.Price id="price" />
+                </div>
+                <div>
+                    <label for="location">Location: </label>
+                    <InputText @bind-Value=advertData.Location id="location" @onchange="@(() => LogStuff())" />
+                </div>
+                <p>@LastSubmitResult</p>
+                <input type="submit" value="Save" />
+            </EditForm>
+        </MatDialogContent>
+        <MatDialogActions>
+            <MatButton OnClick="@(e => { dialogIsOpen = false; })">Close</MatButton>
+        </MatDialogActions>
+    </MatDialog>
+</div>
+
+@code
+{
+    bool dialogIsOpen = false;
+    string LastSubmitResult = "";
+    [Parameter] public AdvertModel advertData { get; set; } = new AdvertModel();
+
+    void OpenDialog()
+    {
+        dialogIsOpen = true;
+    }
+
+    void OkClick()
+    {
+        dialogIsOpen = false;
+    }
+
+    async Task UpdateAdvert(AdvertModel updatedAdvert)
+    {
+        await Controller.UpdateAdvert(updatedAdvert);
+    }
+
+    async void ValidFormSubmitted(EditContext editContext)
+    {
+        LastSubmitResult = "OnValidSubmit was executed";
+        await UpdateAdvert(advertData);
+    }
+    void InvalidFormSubmitted(EditContext editContext)
+    {
+        LastSubmitResult = "OnInvalidSubmit was executed";
+    }
+
+    async Task LogStuff()
+    {
+        await JSRuntime.InvokeVoidAsync("console.log", advertData);
+    }
+}

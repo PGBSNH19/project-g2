@@ -1,0 +1,38 @@
+﻿@page "/"
+@using KNet.Web.Controllers
+@using KNet.Web.Data
+@inject AdvertController advertController
+
+
+
+<div class="container-fluid">
+    <h6>QUICK FILTERS</h6>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary">ALL</button>
+        <button type="button" class="btn btn-primary">ONLINE</button>
+        <button type="button" class="btn btn-primary">IRL</button>
+    </div>
+</div>
+<br />
+
+@if (Adverts.Any())
+{
+    <div>
+        @foreach (AdvertModel ad in Adverts)
+        {
+            <AdvertComponent advert=ad editMode="false" />
+        }
+    </div>
+}
+
+
+@code{
+    public List<AdvertModel> Adverts = new List<AdvertModel>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Adverts = await advertController.GetAdverts();
+    }
+
+}
+

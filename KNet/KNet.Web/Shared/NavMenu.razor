@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using KNet.Web.Areas.Identity.Data
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<CascadingAuthenticationState>
+    <MatAppBarContainer>
+        <MatAppBar Fixed="true">
+            <MatAppBarRow Style="background-color: lightblue;">
+
+                <MatAppBarSection>
+                    <MatButton Style="background-color: steelblue;"
+                               Link="/"
+                               Raised="true">
+                        Home
+                    </MatButton>
+                    <MatAppBarTitle>KNet</MatAppBarTitle>
+                </MatAppBarSection>
+
+                <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+
+                    <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                        <MatSelectItem @bind-Value="@value1" Items="@value1Items"></MatSelectItem>
+                        <MatIconButton Icon="search"></MatIconButton> @*This button should have OnClick connected to logic in the code-block when it works*@
+                    </MatAppBarSection>
+
+                    <MatButton Style="background-color: steelblue;"
+                               Link="/ad"
+                               Raised="true">
+                        Create New Ad
+                    </MatButton>
+
+                </MatAppBarSection>
+
+                <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                    <AuthorizeView>
+                        <Authorized>
+                            <MatButton Style="background-color: steelblue;"
+                                       Raised="true"
+                                       TrailingIcon="account_circle"
+                                       OnClick="@OnClick"
+                                       RefBack="@buttonForwardRef">
+                                Profile
+                            </MatButton>
+                            <MatMenu @ref="Menu" TargetForwardRef="@buttonForwardRef">
+                                <MatList>
+                                    <MatListItem Href="/profile">Edit Profile</MatListItem>
+                                    <MatListItem Href="/counter">Bookmarks</MatListItem>
+                                    <MatListItem Href="/myadverts">My Adverts</MatListItem>
+                                    <MatNavItem Href="/identity/account/logout">Log Out</MatNavItem>
+                                </MatList>
+                            </MatMenu>
+                        </Authorized>
+                        <NotAuthorized>
+                            <MatButtonLink Style="background-color: steelblue;"
+                                       Raised="true"
+                                       TrailingIcon="account_circle"
+                                       Href="/identity/account/login">Log In</MatButtonLink>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                </MatAppBarSection>
+
+
+            </MatAppBarRow>
+        </MatAppBar>
+    </MatAppBarContainer>
+</CascadingAuthenticationState>
+
+@code
+{
+    @*This is the options for the defferent Categories. They should be fetched from db at a later stage*@
+    string value1 = "Music";
+
+    string[] value1Items = new[]
+                {
+                        "Music",
+                        "Programming",
+                        "Painting",
+                        "Cooking",
+                        "Roofing",
+                        "Gardening",
+                        "Fishing",
+                        "Health & Lifestyle",
+                        "Dancing",
+                        "Homeopathy",
+                        "Gambling & Gaming",
+                  };
+
+
+    ForwardRef buttonForwardRef = new ForwardRef();
+    BaseMatMenu Menu;
+
+    public void OnClick(MouseEventArgs e)
+    {
+        this.Menu.OpenAsync();
+    }
+}
