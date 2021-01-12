@@ -40,8 +40,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}  
+        docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:v.${{ github.run_number }}-${{ github.sha }} 
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:$v.${{ github.run_number }}-${{ github.sha }}
         
     - name: Login to Azure CLI 
       uses: azure/login@v1
@@ -53,9 +53,9 @@ jobs:
       with:
         name: knet-api-release
         publish-profile: ${{ secrets.SERVER_PUBLISH_PROFILE_DEV }}
-        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:${{ github.sha }}
+        image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:v.${{ github.run_number }}-${{ github.sha }}
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-release-run${{ github.run_number }}
+        dns-name-label: ${{ secrets.AZURE_RESOURCE_GROUP }}api-release
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
