@@ -25,8 +25,8 @@ namespace KNet.Web
             Configuration = configuration;
         }
 
-        string stagingURI = @"https://G2api-staging-run4.westus.azurecontainer.io/api/v1/";
-        string releaseURI = @"https://G2api-release-run5.westus.azurecontainer.io/api/v1/";
+        string stagingURI = @"https://Group2api-staging.westus.azurecontainer.io/api/v1/";
+        string releaseURI = @"https://Group2api-release.westus.azurecontainer.io/api/v1/";
 
         public IConfiguration Configuration { get; }
 
