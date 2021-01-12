@@ -1,9 +1,17 @@
 ﻿@page "/myadverts"
 @using System.Net.Http
 @using KNet.Web.Data
-@using KNet.Web.Controllers 
+@using KNet.Web.Controllers
 @inject AdvertController Controller
 @inject HttpClient Http
+
+
+<div style="border: 1px solid black">
+    <p>Select your user</p>
+    @*<MatSelectItem Items="@value1Items" ValueChanged="(string codedUser) => GetUserAdverts(codedUser)"></MatSelectItem>*@
+    <MatTextField Label="userId" ValueChanged="(string codedUser) => GetUserAdverts(codedUser)"></MatTextField>
+    <MatButton OnClick="@Click" Raised="true">Search</MatButton>
+</div>
 
 @if (Adverts.Any())
 {
@@ -26,20 +34,50 @@
 }
 
 
-
 @code {
+    public string codedUser = "f2599827-2884-4e34-6a99-08d8b63cc53e";
     public List<AdvertModel> Adverts = new List<AdvertModel>();
 
     protected async override Task OnInitializedAsync()
     {
         Adverts = await Controller
             .GetAdvertsByUserId(
-            Guid.Parse("a453298d-af76-46a0-aac0-08d8b0bc1bee")
-            );
+            Guid.Parse(codedUser));
+    }
+
+    public async Task GetUserAdverts(string hardCodedUser)
+    {
+        Adverts = await Controller
+           .GetAdvertsByUserId(
+           Guid.Parse(hardCodedUser));
     }
 
     async void DeleteAdvert(Guid advertId)
     {
         await Controller.DeleteAdvert(advertId);
     }
+
+    public async void Click(MouseEventArgs e)
+    {
+        await GetUserAdverts(codedUser);
+    }
+
+
+    //A list with all the users
+    //string[] value1Items = new[]
+    //    {
+    //                    "f2599827-2884-4e34-6a99-08d8b63cc53e",
+    //                    "539cd301-5419-4b0d-6a9a-08d8b63cc53e",
+    //                    "84eacda4-9244-4af6-6a9b-08d8b63cc53e",
+    //                    "e807d211-c1ef-4fde-6a9c-08d8b63cc53e",
+    //                    "d5d7ca02-d031-44b7-6a9d-08d8b63cc53e",
+    //                    "c3177a11-26bb-4f95-6a9e-08d8b63cc53e",
+    //                    "ad28d5d5-0b3b-4c17-6a9f-08d8b63cc53e",
+    //                    "f65e0918-4fc8-4945-6aa0-08d8b63cc53e",
+    //                    "b23633b4-d319-49cf-6aa1-08d8b63cc53e",
+    //                    "67583849-cd5a-439e-6aa2-08d8b63cc53e",
+    //                    "f9e8d99b-bb96-4f62-6aa3-08d8b63cc53e",
+    //                    "1c332c3d-b69d-4484-6aa4-08d8b63cc53e",
+    //              };
+
 }
