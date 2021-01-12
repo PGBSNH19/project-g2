@@ -8,12 +8,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace KNet.API.Context
 {
     public class AppDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
-        //AzureKeyVaultService _aKVService = new AzureKeyVaultService();
+        AzureKeyVaultService _aKVService = new AzureKeyVaultService();
 
         public AppDbContext(IConfiguration config, DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -32,6 +33,7 @@ namespace KNet.API.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();
+
 
             try
             {

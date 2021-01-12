@@ -28,7 +28,7 @@ namespace KNet.Web.Controllers
             try
             {
                 advertsList = await Http.GetFromJsonAsync<List<AdvertModel>>
-                (@"https://localhost:44360/api/v1/Advert/userId?id=" + userId);
+                (@"Advert/userId?id=" + userId);
             }
             catch (Exception e)
             {
