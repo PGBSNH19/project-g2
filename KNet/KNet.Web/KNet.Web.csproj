@@ -12,10 +12,6 @@
 
     <PackageReference Include="MatBlazor" Version="2.8.0" />
 
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
-
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
-
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.5" />
 
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.0" />

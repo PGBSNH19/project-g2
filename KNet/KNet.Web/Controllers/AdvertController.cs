@@ -1,5 +1,4 @@
-﻿using KNet.Web.Areas.Identity.Data;
-using KNet.Web.Data;
+﻿using KNet.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System;
