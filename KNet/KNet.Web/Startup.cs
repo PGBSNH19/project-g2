@@ -11,6 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MatBlazor;
+using System.Net.Http;
+using KNet.Web.Controllers;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace KNet.Web
 {
@@ -21,16 +25,37 @@ namespace KNet.Web
             Configuration = configuration;
         }
 
+        string stagingURI = @"https://Group2api-staging.westus.azurecontainer.io/api/v1/";
+        string releaseURI = @"https://Group2api-release.westus.azurecontainer.io/api/v1/";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            #if DEBUG
+            {
+                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(stagingURI));
+            }
+            #else
+            {
+                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(releaseURI));
+            }
+            #endif            
+            services.AddScoped<AdvertController>();
+            services.AddScoped<UserController>();
+
+            services.AddAuthentication("Identity.Application")
+                .AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddMatBlazor();
+            services.AddRazorPages();
+
+            // HttpContextAccessor
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,10 +72,13 @@ namespace KNet.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
+            app.UseHttpsRedirection();
+            app.UseCookiePolicy();
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

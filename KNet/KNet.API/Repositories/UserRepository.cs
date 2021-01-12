@@ -14,16 +14,25 @@ namespace KNet.API.Repositories
         {
         }
 
-        public async Task<User> GetUserById(Guid id)
+        public async Task<UserModel> GetUserById(Guid id)
         {
             return await _context.Users
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IList<User>> GetAllUsers()
+        public async Task<IList<UserModel>> GetAllUsers()
         {
             return await _context.Users.ToListAsync();
+        }
+
+        public async Task<UserModel> GetUserByEmail(string email)
+        {
+            email = email.ToLower();
+
+            return await _context.Users
+                .Where(x => x.Email == email)
+                .FirstOrDefaultAsync();
         }
     }
 }

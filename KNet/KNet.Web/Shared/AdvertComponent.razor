@@ -1,0 +1,55 @@
+﻿@using KNet.Web.Controllers
+@inject AdvertController Controller
+<div style="display: inline-flex">
+    @if (editMode)
+    {
+        <MatCheckbox @bind-Value="@selected" TValue="bool"></MatCheckbox>
+        <MatIconButton Icon="delete"
+                       OnClick="@(() => OnDeleteAdvert.InvokeAsync(advert.Id))" />
+        <EditAdModal advertData="@advert" />
+    }
+    <div class="card" style="width: 60vw">
+        <div class="card-header">
+            <h4>
+                @advert.Heading
+            </h4>
+            <div class="text-sm-right">
+                Category: @advert.CategoryId
+            </div>
+
+            <AdModal advertData="@advert"/>
+        </div>
+        <div class="row">
+            <div class="img-fluid col-md-4">
+                <img src="favicon.ico">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="card-text">@advert.Content</p>
+                    <p class="card-text">Start/End: @advert.StartDate - @advert.EndDate</p>
+                    <p class="card-text">Location: @advert.Location</p>
+                    <p class="card-text">Price: @advert.Price SEK</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    public bool selected = false;
+    [Parameter] public EventCallback<Guid> OnDeleteAdvert { get; set; }
+    [Parameter] public bool editMode { get; set; } = false;
+    [Parameter]
+    public AdvertModel advert { get; set; } = new AdvertModel
+    {
+        Id = Guid.NewGuid(),
+        CategoryId = Guid.NewGuid(),
+        Content = "Placeholder",
+        StartDate = DateTime.Now,
+        EndDate = DateTime.Now,
+        Heading = "Placeholder",
+        IsFlagged = false,
+        Location = "Placeholder",
+        Price = 0,
+        UserId = Guid.NewGuid(),
+    };
+}
