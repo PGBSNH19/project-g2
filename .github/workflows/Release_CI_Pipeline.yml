@@ -25,4 +25,4 @@ jobs:
       run: dotnet build KNet/KNet.sln
 
     - name: Run Unit Tetsts
-      run: dotnet test KNet/KNet.Tests/KNet.Tests.csproj
+      run: dotnet test KNet/KNet.APITests/KNet.APITests.csproj
