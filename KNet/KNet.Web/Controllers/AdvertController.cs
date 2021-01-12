@@ -36,7 +36,23 @@ namespace KNet.Web.Controllers
             }
 
             return advertsList;
-            
+        }
+
+        public async Task<List<AdvertModel>> GetAdverts()
+        {
+            List<AdvertModel> advertsList = new List<AdvertModel>();
+
+            try
+            {
+                advertsList = await Http.GetFromJsonAsync<List<AdvertModel>>
+                (@"Advert/list");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"GetAdvertsList: BadRequest. {e}");
+            }
+
+            return advertsList;
         }
 
         //Untested

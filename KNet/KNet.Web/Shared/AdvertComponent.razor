@@ -1,15 +1,12 @@
 ﻿@using KNet.Web.Controllers
 @inject AdvertController Controller
-
 <div style="display: inline-flex">
     @if (editMode)
     {
         <MatCheckbox @bind-Value="@selected" TValue="bool"></MatCheckbox>
-        <MatIconButton 
-            Icon="delete"
-            OnClick="@(() => OnDeleteAdvert.InvokeAsync(advert.Id))" 
-        />
-        <EditAdModal advertData="@advert"/>
+        <MatIconButton Icon="delete"
+                       OnClick="@(() => OnDeleteAdvert.InvokeAsync(advert.Id))" />
+        <EditAdModal advertData="@advert" />
     }
     <div class="card" style="width: 60vw">
         <div class="card-header">
@@ -19,7 +16,8 @@
             <div class="text-sm-right">
                 Category: @advert.CategoryId
             </div>
-            <AdModal advertData="@advert" />
+
+            <AdModal advertData="@advert"/>
         </div>
         <div class="row">
             <div class="img-fluid col-md-4">
@@ -36,12 +34,12 @@
         </div>
     </div>
 </div>
-
 @code {
     public bool selected = false;
     [Parameter] public EventCallback<Guid> OnDeleteAdvert { get; set; }
     [Parameter] public bool editMode { get; set; } = false;
-    [Parameter] public AdvertModel advert { get; set; } = new AdvertModel
+    [Parameter]
+    public AdvertModel advert { get; set; } = new AdvertModel
     {
         Id = Guid.NewGuid(),
         CategoryId = Guid.NewGuid(),
