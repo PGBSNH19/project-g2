@@ -1,13 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Identity
-@using KNet.Web.Areas.Identity.Data
 
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
-
-@inject AuthenticationStateProvider AuthenticationStateProvider
-
-<CascadingAuthenticationState>
     <MatAppBarContainer>
         <MatAppBar Fixed="true">
             <MatAppBarRow Style="background-color: lightblue;">
@@ -37,8 +29,6 @@
                 </MatAppBarSection>
 
                 <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                    <AuthorizeView>
-                        <Authorized>
                             <MatButton Style="background-color: steelblue;"
                                        Raised="true"
                                        TrailingIcon="account_circle"
@@ -54,21 +44,12 @@
                                     <MatNavItem Href="/identity/account/logout">Log Out</MatNavItem>
                                 </MatList>
                             </MatMenu>
-                        </Authorized>
-                        <NotAuthorized>
-                            <MatButtonLink Style="background-color: steelblue;"
-                                       Raised="true"
-                                       TrailingIcon="account_circle"
-                                       Href="/identity/account/login">Log In</MatButtonLink>
-                        </NotAuthorized>
-                    </AuthorizeView>
                 </MatAppBarSection>
 
 
             </MatAppBarRow>
         </MatAppBar>
     </MatAppBarContainer>
-</CascadingAuthenticationState>
 
 @code
 {
