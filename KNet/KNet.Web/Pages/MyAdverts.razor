@@ -1,0 +1,51 @@
+﻿@page "/myadverts"
+@using System.Net.Http
+@using KNet.Web.Data
+@using KNet.Web.Controllers
+@inject AdvertController Controller
+@inject HttpClient Http
+
+
+<div style="border: 1px solid black">
+    <p>Select your user</p>
+    <MatTextField Label="userId" ValueChanged="(string userId) => GetUserAdverts(userId)"></MatTextField>
+    <MatButton Type="submit" Raised="true">Search</MatButton>
+</div>
+
+@if (Adverts.Any())
+{
+    <div>
+        <div>
+            <MatButton>Delete Marked Ads</MatButton>
+            <MatButton>Create new ad</MatButton>
+        </div>
+        <div>
+            <MatButton>Select/Unselect All</MatButton>
+            <h5>MY ADVERTS</h5>
+        </div>
+        <div>
+            @foreach (AdvertModel ad in Adverts)
+            {
+                <AdvertComponent advert=ad editMode="true" />
+            }
+        </div>
+    </div>
+}
+
+@code {
+    public string userId { get; set; }
+    public List<AdvertModel> Adverts = new List<AdvertModel>();
+   
+
+    public async Task GetUserAdverts(string userId)
+    {
+        Adverts = await Controller
+           .GetAdvertsByUserId(
+           Guid.Parse(userId));
+    }
+
+    async void DeleteAdvert(Guid advertId)
+    {
+        await Controller.DeleteAdvert(advertId);
+    }
+}

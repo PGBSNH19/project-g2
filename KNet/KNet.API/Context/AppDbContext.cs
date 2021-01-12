@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace KNet.API.Context
 {
     public class AppDbContext : DbContext
@@ -33,8 +34,19 @@ namespace KNet.API.Context
         {
             var builder = new ConfigurationBuilder();
 
-            var azureDbCon = _aKVService.GetKeyVaultSecret().Result;
-            optionsBuilder.UseSqlServer(azureDbCon);
+
+            try
+            {
+                builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                var config = builder.Build();
+                var defaultConnectionString = config.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(defaultConnectionString);
+            }
+            catch
+            {
+                var azureDbCon = _aKVService.GetKeyVaultSecret().Result;
+                optionsBuilder.UseSqlServer(azureDbCon);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
