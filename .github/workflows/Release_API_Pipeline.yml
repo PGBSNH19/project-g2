@@ -41,7 +41,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
         docker build -f KNet/KNet.API/Dockerfile . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:v.${{ github.run_number }}-${{ github.sha }} 
-        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:$v.${{ github.run_number }}-${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/knet-api-release:v.${{ github.run_number }}-${{ github.sha }}
         
     - name: Login to Azure CLI 
       uses: azure/login@v1
