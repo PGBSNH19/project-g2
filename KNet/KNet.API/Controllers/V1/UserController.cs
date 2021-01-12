@@ -29,6 +29,20 @@ namespace KNet.API.Repositories
             return Ok(user);
         }
 
+        [HttpGet("email")]
+        public async Task<IActionResult> Get(string email)
+        {
+            if (email == string.Empty)
+                return BadRequest();
+
+            var user = await _userRepository.GetUserByEmail(email);
+
+            if (user is null)
+                return BadRequest();
+
+            return Ok(user);
+        }
+
         [HttpGet("list")]
         public async Task<IActionResult> List()
         {
@@ -53,7 +67,7 @@ namespace KNet.API.Repositories
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(User request)
+        public async Task<IActionResult> Put(UpdateUserModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -79,7 +93,7 @@ namespace KNet.API.Repositories
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var user = new User
+            var user = new UserModel
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,

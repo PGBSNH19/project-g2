@@ -25,7 +25,7 @@ namespace KNet.API.Context
 
         }
 
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<CategoryModel> Categories { get; set; }
         public virtual DbSet<AdvertModel> Adverts { get; set; }
 
@@ -33,18 +33,8 @@ namespace KNet.API.Context
         {
             var builder = new ConfigurationBuilder();
 
-            try
-            {
-                builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-                var config = builder.Build();
-                var defaultConnectionString = config.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(defaultConnectionString);
-            }
-            catch
-            {
-                var azureDbCon = _aKVService.GetKeyVaultSecret().Result;
-                optionsBuilder.UseSqlServer(azureDbCon);
-            }
+            var azureDbCon = _aKVService.GetKeyVaultSecret().Result;
+            optionsBuilder.UseSqlServer(azureDbCon);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
