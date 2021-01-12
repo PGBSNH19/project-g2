@@ -85,7 +85,8 @@ namespace KNet.Web.Controllers
 
             try
             {
-                await Http.PutAsync(@"Advert", new StringContent(JsonConvert.SerializeObject(updateModel), Encoding.UTF8, "application/json"));
+                var content = JsonConvert.SerializeObject(updateModel);
+                await Http.PutAsync(@"Advert", new StringContent(content, Encoding.UTF8, "application/json"));
             }
             catch (Exception e)
             {
