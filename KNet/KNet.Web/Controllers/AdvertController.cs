@@ -1,15 +1,12 @@
 ﻿using KNet.Web.Data;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.Json;
-using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace KNet.Web.Controllers
 {
@@ -88,8 +85,7 @@ namespace KNet.Web.Controllers
 
             try
             {
-                //Not yet implemented
-                Console.WriteLine("Not yet implemented");
+                await Http.PutAsync(@"Advert", new StringContent(JsonConvert.SerializeObject(updateModel), Encoding.UTF8, "application/json"));
             }
             catch (Exception e)
             {
