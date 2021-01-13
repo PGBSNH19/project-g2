@@ -2,17 +2,11 @@
 
 ## Course: Produce and Deliver Software
 
-![Development API CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Development%20API%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
+![Development API CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Development%20API%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg) ![Development WEB CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Development%20WEB%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
 
-![Development WEB CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Development%20WEB%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
+![Staging API CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Staging%20API%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg) ![Staging Web CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Staging%20Web%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
 
-![Staging API CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Staging%20API%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
-
-![Staging Web CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Staging%20Web%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
-
-![Release API CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Release%20API%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
-
-![Release Web CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Release%20Web%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
+![Release API CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Release%20API%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg) ![Release Web CI/CD - Build, test and then run in azure](https://github.com/PGBSNH19/project-g2/workflows/Release%20Web%20CI/CD%20-%20Build,%20test%20and%20then%20run%20in%20azure/badge.svg)
 
 ## Group 2
 
@@ -213,7 +207,7 @@ It is also worth mentioning that without access to the Azure account where thing
 
 ## Resources and links
 
-- [Jira] (https://plushogskolan.atlassian.net/secure/RapidBoard.jspa?rapidView=11&projectKey=G2&selectedIssue=G2-116)
+- Jira: https://plushogskolan.atlassian.net/secure/RapidBoard.jspa?rapidView=11&projectKey=G2&selectedIssue=G2-116
 
-- [Confluence] (https://plushogskolan.atlassian.net/wiki/spaces/G2/overview)
+- Confluence: https://plushogskolan.atlassian.net/wiki/spaces/G2/overview
 
