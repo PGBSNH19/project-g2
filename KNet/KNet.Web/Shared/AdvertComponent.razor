@@ -1,5 +1,6 @@
 ﻿@using KNet.Web.Controllers
 @inject AdvertController Controller
+
 <div style="display: inline-flex">
     @if (editMode)
     {
@@ -34,6 +35,7 @@
         </div>
     </div>
 </div>
+
 @code {
     public bool selected = false;
     [Parameter] public EventCallback<Guid> OnDeleteAdvert { get; set; }

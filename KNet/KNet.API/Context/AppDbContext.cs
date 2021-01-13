@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace KNet.API.Context
 {
     public class AppDbContext : DbContext
@@ -33,7 +32,6 @@ namespace KNet.API.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();
-
 
             try
             {
