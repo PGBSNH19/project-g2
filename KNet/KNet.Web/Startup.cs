@@ -36,11 +36,11 @@ namespace KNet.Web
         {
             #if DEBUG
             {
-                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri("https://localhost:44360/api/v1/"));
+                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(stagingURI));
             }
             #else
             {
-                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri("https://localhost:44360/api/v1/"));
+                services.AddHttpClient("knetAPIClient", c => c.BaseAddress = new Uri(releaseURI));
             }
             #endif            
             services.AddScoped<AdvertController>();
