@@ -5,7 +5,6 @@
 @inject AdvertController Controller
 @inject HttpClient Http
 
-
 <div style="border: 1px solid black">
     <p>Select your user</p>
     <MatTextField Label="userId" ValueChanged="(string userId) => GetUserAdverts(userId)"></MatTextField>
@@ -26,7 +25,7 @@
         <div>
             @foreach (AdvertModel ad in Adverts)
             {
-                <AdvertComponent advert=ad editMode="true" />
+                <AdvertComponent advert=ad editMode="true" OnDeleteAdvert="(Guid id) => DeleteAdvert(id)" />
             }
         </div>
     </div>
