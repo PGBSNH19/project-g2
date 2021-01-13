@@ -65,7 +65,7 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(UpdateAdvertModel request)
+        public async Task<IActionResult> Put([FromBody] UpdateAdvertModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
