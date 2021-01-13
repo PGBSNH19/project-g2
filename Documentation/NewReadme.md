@@ -213,7 +213,7 @@ It is also worth mentioning that without access to the Azure account where thing
 
 ## Resources and links
 
-- Jira: https://plushogskolan.atlassian.net/secure/RapidBoard.jspa?rapidView=11&projectKey=G2&selectedIssue=G2-116
+- [Jira](https://plushogskolan.atlassian.net/secure/RapidBoard.jspa?rapidView=11&projectKey=G2&selectedIssue=G2-116)
 
-- Confluence: https://plushogskolan.atlassian.net/wiki/spaces/G2/overview
+- [Confluence](https://plushogskolan.atlassian.net/wiki/spaces/G2/overview)
 
