@@ -2,10 +2,14 @@
 @using System.Net.Http
 @using KNet.Web.Data
 @using KNet.Web.Controllers
-@inject AdvertController AdvertController
-@inject UserController UserController
+@inject AdvertController Controller
 @inject HttpClient Http
-@inject WebContext context
+
+<div style="border: 1px solid black">
+    <p>Select your user</p>
+    <MatTextField Label="userId" ValueChanged="(string userId) => GetUserAdverts(userId)"></MatTextField>
+    <MatButton Type="submit" Raised="true">Search</MatButton>
+</div>
 
 @if (Adverts.Any())
 {
@@ -21,27 +25,26 @@
         <div>
             @foreach (AdvertModel ad in Adverts)
             {
-                <AdvertComponent advert=ad editMode="true" />
+                <AdvertComponent advert=ad editMode="true" OnDeleteAdvert="(Guid id) => DeleteAdvert(id)" />
             }
         </div>
     </div>
 }
 
-
-
 @code {
+    public string userId { get; set; }
     public List<AdvertModel> Adverts = new List<AdvertModel>();
+   
 
-    protected async override Task OnInitializedAsync()
+    public async Task GetUserAdverts(string userId)
     {
-        Adverts = await AdvertController
-            .GetAdvertsByUserId(
-            Guid.Parse("a453298d-af76-46a0-aac0-08d8b0bc1bee")
-            );
+        Adverts = await Controller
+           .GetAdvertsByUserId(
+           Guid.Parse(userId));
     }
 
     async void DeleteAdvert(Guid advertId)
     {
-        await AdvertController.DeleteAdvert(advertId);
+        await Controller.DeleteAdvert(advertId);
     }
 }
