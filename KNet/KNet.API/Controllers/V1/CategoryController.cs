@@ -17,75 +17,83 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetCategoryById(Guid id)
         {
             if (id == Guid.Empty)
-                return BadRequest();
+                return BadRequest("Please enter a valid category id.");
 
-            var category = await _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetEntityById<CategoryModel>(id);
 
             if (category is null)
-                return BadRequest();
+                return NotFound($"A category with id '{id}' could not be found.");
 
             return Ok(category);
         }
 
         [HttpGet("name")]
-        public async Task<IActionResult> Get(string name)
+        public async Task<IActionResult> GetCategoryByName(string name)
         {
             if (name == string.Empty)
-                return BadRequest();
+                return BadRequest("Please enter a valid category name.");
 
             var category = await _categoryRepository.GetCategoryByName(name);
 
             if (category is null)
-                return BadRequest();
+                return NotFound($"A category with the name '{name}' could not be found.");
 
             return Ok(category);
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _categoryRepository.GetAllCategories();
-
-            if (categories is null)
-                return BadRequest();
+            var categories = await _categoryRepository.GetAllEntities<CategoryModel>();
 
             return Ok(categories);
         }
 
         [HttpDelete("id")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteCategoryById(Guid id)
         {
             if (id == Guid.Empty)
-                return BadRequest();
+                return BadRequest("Please enter a valid category id.");
 
-            var category = await _categoryRepository.GetCategoryById(id);
+            var category = await _categoryRepository.GetEntityById<CategoryModel>(id);
+
+            if (category is null)
+                return NotFound($"A category with id '{id}' could not be found.");
+
             await _categoryRepository.Delete(category);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete("name")]
-        public async Task<IActionResult> Delete(string name)
+        public async Task<IActionResult> DeleteCategoryByName(string name)
         {
             if (name == string.Empty)
-                return BadRequest();
+                return BadRequest("Please enter a valid category name.");
 
             var category = await _categoryRepository.GetCategoryByName(name);
+
+            if (category is null)
+                return NotFound($"A category with the name '{name}' could not be found.");
+
             await _categoryRepository.Delete(category);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut("id")]
-        public async Task<IActionResult> Put(UpdateCategoryModel request)
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var category = await _categoryRepository.GetCategoryById(request.Id);
+            var category = await _categoryRepository.GetEntityById<CategoryModel>(request.Id);
+
+            if (category is null)
+                return NotFound($"A category with id '{request.Id}' could not be found.");
 
             category.Name = request.Name;
 
@@ -94,7 +102,7 @@ namespace KNet.API.Controllers.V1
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post (CreateCategoryModel request)
+        public async Task<IActionResult> CreateNewCategory(CreateCategoryModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
