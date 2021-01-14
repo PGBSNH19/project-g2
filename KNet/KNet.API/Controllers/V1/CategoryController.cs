@@ -17,6 +17,7 @@ namespace KNet.API.Controllers.V1
             _categoryRepository = categoryRepository;
         }
 
+        //If we use {id} instead of id the address will be more shorter and easier to call  .../category/8a161439-f869-4f44-7d29-08d8b8724a74
         [HttpGet("id")]
         public async Task<IActionResult> GetCategoryById(Guid id)
         {
@@ -87,9 +88,9 @@ namespace KNet.API.Controllers.V1
                 if (category is null)
                     return NotFound($"A category with id '{id}' could not be found.");
 
-                await _categoryRepository.Delete(category);
+                var deletedCategory = await _categoryRepository.Delete(category);
 
-                return NoContent();
+                return Ok(deletedCategory);
             }
             catch (Exception e)
             {
@@ -111,9 +112,9 @@ namespace KNet.API.Controllers.V1
                 if (category is null)
                     return NotFound($"A category with the name '{name}' could not be found.");
 
-                await _categoryRepository.Delete(category);
+                var deletedCategory = await _categoryRepository.Delete(category);
 
-                return NoContent();
+                return Ok(deletedCategory);
             }
             catch (Exception e)
             {
@@ -137,8 +138,8 @@ namespace KNet.API.Controllers.V1
 
                 category.Name = request.Name;
 
-                await _categoryRepository.Update(category);
-                return Ok();
+                var updatedCategory = await _categoryRepository.Update(category);
+                return Ok(updatedCategory);
             }
             catch (Exception e)
             {
@@ -160,8 +161,8 @@ namespace KNet.API.Controllers.V1
                     Name = request.Name
                 };
 
-                await _categoryRepository.Add(category);
-                return Ok();
+                var createdCategory = await _categoryRepository.Add(category);
+                return Ok(createdCategory);
             }
             catch (Exception e)
             {
