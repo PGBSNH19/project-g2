@@ -1,5 +1,6 @@
 ﻿using KNet.API.Models;
 using KNet.API.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -19,101 +20,154 @@ namespace KNet.API.Controllers.V1
         [HttpGet("id")]
         public async Task<IActionResult> GetCategoryById(Guid id)
         {
-            if (id == Guid.Empty)
-                return BadRequest("Please enter a valid category id.");
+            try
+            {
+                if (id == Guid.Empty)
+                    return BadRequest("Please enter a valid category id.");
 
-            var category = await _categoryRepository.GetEntityById<CategoryModel>(id);
+                var category = await _categoryRepository.GetEntityById<CategoryModel>(id);
 
-            if (category is null)
-                return NotFound($"A category with id '{id}' could not be found.");
+                if (category is null)
+                    return NotFound($"A category with id '{id}' could not be found.");
 
-            return Ok(category);
+                return Ok(category);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"API Failure: {e.Message}");
+            }
         }
 
         [HttpGet("name")]
         public async Task<IActionResult> GetCategoryByName(string name)
         {
-            if (name == string.Empty)
-                return BadRequest("Please enter a valid category name.");
+            try
+            {
+                if (name == string.Empty)
+                    return BadRequest("Please enter a valid category name.");
 
-            var category = await _categoryRepository.GetCategoryByName(name);
+                var category = await _categoryRepository.GetCategoryByName(name);
 
-            if (category is null)
-                return NotFound($"A category with the name '{name}' could not be found.");
+                if (category is null)
+                    return NotFound($"A category with the name '{name}' could not be found.");
 
-            return Ok(category);
+                return Ok(category);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"API Failure: {e.Message}");
+            }
         }
 
         [HttpGet("list")]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _categoryRepository.GetAllEntities<CategoryModel>();
+            try
+            {
+                var categories = await _categoryRepository.GetAllEntities<CategoryModel>();
 
-            return Ok(categories);
+                return Ok(categories);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"API Failure: {e.Message}");
+            }
         }
 
         [HttpDelete("id")]
         public async Task<IActionResult> DeleteCategoryById(Guid id)
         {
-            if (id == Guid.Empty)
-                return BadRequest("Please enter a valid category id.");
+            try
+            {
+                if (id == Guid.Empty)
+                    return BadRequest("Please enter a valid category id.");
 
-            var category = await _categoryRepository.GetEntityById<CategoryModel>(id);
+                var category = await _categoryRepository.GetEntityById<CategoryModel>(id);
 
-            if (category is null)
-                return NotFound($"A category with id '{id}' could not be found.");
+                if (category is null)
+                    return NotFound($"A category with id '{id}' could not be found.");
 
-            await _categoryRepository.Delete(category);
+                await _categoryRepository.Delete(category);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Failed to remove category Exception thrown when attempting to remove data to the database: {e.Message}");
+            }
         }
 
         [HttpDelete("name")]
         public async Task<IActionResult> DeleteCategoryByName(string name)
         {
-            if (name == string.Empty)
-                return BadRequest("Please enter a valid category name.");
+            try
+            {
+                if (name == string.Empty)
+                    return BadRequest("Please enter a valid category name.");
 
-            var category = await _categoryRepository.GetCategoryByName(name);
+                var category = await _categoryRepository.GetCategoryByName(name);
 
-            if (category is null)
-                return NotFound($"A category with the name '{name}' could not be found.");
+                if (category is null)
+                    return NotFound($"A category with the name '{name}' could not be found.");
 
-            await _categoryRepository.Delete(category);
+                await _categoryRepository.Delete(category);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Failed to remove category Exception thrown when attempting to remove data to the database: {e.Message}");
+            }
         }
 
         [HttpPut("id")]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryModel request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
 
-            var category = await _categoryRepository.GetEntityById<CategoryModel>(request.Id);
+                var category = await _categoryRepository.GetEntityById<CategoryModel>(request.Id);
 
-            if (category is null)
-                return NotFound($"A category with id '{request.Id}' could not be found.");
+                if (category is null)
+                    return NotFound($"A category with id '{request.Id}' could not be found.");
 
-            category.Name = request.Name;
+                category.Name = request.Name;
 
-            await _categoryRepository.Update(category);
-            return Ok();
+                await _categoryRepository.Update(category);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Failed to update category Exception thrown when attempting to update data to the database: {e.Message}");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateNewCategory(CreateCategoryModel request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var category = new CategoryModel
+            try
             {
-                Name = request.Name
-            };
+                if (!ModelState.IsValid)
+                    return BadRequest();
 
-            await _categoryRepository.Add(category);
-            return Ok();
+                var category = new CategoryModel
+                {
+                    Name = request.Name
+                };
+
+                await _categoryRepository.Add(category);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Failed to add category Exception thrown when attempting to add data to the database: {e.Message}");
+            }
         }
     }
 }
