@@ -14,13 +14,6 @@ namespace KNet.API.Repositories
         {
         }
 
-        public async Task<CategoryModel> GetCategoryById(Guid id)
-        {
-            return await _context.Categories
-                .Where(x => x.Id == id)
-                .FirstOrDefaultAsync();
-        }
-
         public async Task<CategoryModel> GetCategoryByName(string name)
         {
             name = name.ToLower();
@@ -28,11 +21,6 @@ namespace KNet.API.Repositories
             return await _context.Categories
                 .Where(x => x.Name == name)
                 .FirstOrDefaultAsync();
-        }
-
-        public async Task<IList<CategoryModel>> GetAllCategories()
-        {
-            return await _context.Categories.ToListAsync();
         }
     }
 }

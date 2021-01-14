@@ -1,6 +1,7 @@
 ﻿using KNet.API.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KNet.API.Repositories
@@ -37,6 +38,16 @@ namespace KNet.API.Repositories
             _context.Entry(entity).State = EntityState.Modified;
             await Save();
             return entity;
+        }
+
+        public async Task<T> GetEntityById<T>(Guid id) where T : class
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<IList<T>> GetAllEntities<T>() where T : class
+        {
+            return await _context.Set<T>().ToListAsync();
         }
     }
 }
